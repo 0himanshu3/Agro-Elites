@@ -2,7 +2,7 @@ import React from 'react';
 
 const Facilities = () => (
   <div id="facilities" className="bg-green-700 text-white p-8 rounded-lg mt-8 m-4">
-    <h3 className="text-xl font-bold mb-4">Facilities Available</h3>
+    <h3 className="text-xl font-bold mb-4 text-facilities">Facilities Available</h3>
     <ul className="list-disc ml-8">
       <li>Cold storage availability</li>
       <li>Various government schemes for farmers</li>
