@@ -5,10 +5,13 @@ const News = () => {
   const [data,setData]=useState([]);
   const [isLoading,setIsLoading]=useState(false);
   const [error,setError]=useState(null);
+  const filterArticles=(articles)=>{
+    return articles.filter(article=> article.title && article.title!=='[Removed]');
+  };
   useEffect(()=>{
     setIsLoading(true);
     setError(null);
-    fetch('/api/newsfetched/all-news?page=1&pageSize=5')
+    fetch('/api/newsfetched/all-news?page=1&pageSize=6')
     .then(response=> {
       if(response.ok){
         return response.json();
@@ -17,7 +20,8 @@ const News = () => {
     })
     .then(myJson=>{
       if(myJson.success){
-        setData(myJson.data.articles);
+        const filteredarticles=filterArticles(myJson.data.articles);
+        setData(filteredarticles);
       }
       else{
         setError(myJson.message|| 'An error occured');

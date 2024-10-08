@@ -18,7 +18,9 @@ const FetchNews = () => {
   }
 
   const pageSize = 12;
-
+  const filterArticles=(articles)=>{
+    return articles.filter(article=> article.title && article.title!=='[Removed]');
+  };
   useEffect(() => {
     setIsLoading(true);
     setError(null);
@@ -33,8 +35,10 @@ const FetchNews = () => {
       .then(myJson => {
         console.log('API Response:', myJson);
         if (myJson.success) {
+          const filteredarticles=filterArticles(myJson.data.articles);
+          console.log(filteredarticles);
           setTotalResults(myJson.data.totalResults);
-          setData(myJson.data.articles);
+          setData(filteredarticles);
         } else {
           setError(myJson.message || 'An error occurred');
         }
