@@ -7,6 +7,7 @@ import Stories from '@/components/Stories';
 import News from '@/components/News';
 import GovernmentSchemes from '@/components/GovernmentSchemes';
 import Login from '@/components/Login';
+import LinksSec from '@/components/LinksSec';
 
 const Layout = () => {
   return (
@@ -33,6 +34,7 @@ const Layout = () => {
       </div>
 
       <Stories className="my-8 p-6" />
+      <LinksSec/>
       <footer className="bg-green-900 text-white text-center py-6 mt-8">
         <p>© Krishi-help</p>
       </footer>
