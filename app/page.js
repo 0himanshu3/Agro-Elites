@@ -19,11 +19,11 @@ const Layout = () => {
           <About className="flex-1 p-4" />
         </div>
 
-        <div className="flex-1 flex items-stretch">
+        {/* <div className="flex-1 flex items-stretch">
           <div className="relative-container flex-1 p-4">
             <Login />
           </div>
-        </div>
+        </div> */}
       </div>
 
       <Facilities className="my-8 p-6" />

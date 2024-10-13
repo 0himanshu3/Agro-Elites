@@ -11,7 +11,7 @@ const Navbar = () => {
 
       <div className='flex space-x-6'>
         <Link href="#summary" className="hover:text-gray-400">Project</Link>
-        <Link href="#login" className="hover:text-gray-400">Login</Link>
+        <Link href="/login" className="hover:text-gray-400">Login</Link>
         <Link href="#facilities" className="hover:text-gray-400">Facilities</Link>
         <Link href="#news" className="hover:text-gray-400">News</Link>
         <Link href="#schemes" className="hover:text-gray-400">Schemes</Link>
