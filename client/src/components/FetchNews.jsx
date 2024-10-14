@@ -57,24 +57,19 @@ const FetchNews = () => {
     <>
       {error && <div className="text-red-500 mb-4">{error}</div>}
       
-      <div className='my-10 cards flex flex-wrap justify-center gap-4 px-4'>
-        {!isLoading ? (
-          data.map((element, index) => (
-            <div className="w-full sm:w-1/2 md:w-1/3 lg:w-1/4 p-2" key={index}>
-              <NewsCard
-                title={element.title}
-                description={element.description}
-                imgUrl={element.urlToImage}
-                publishedAt={element.publishedAt}
-                url={element.url}
-                author={element.author}
-                source={element.source.name}
-              />
-            </div>
-          ))
-        ) : (
-          <Spinner />
-        )}
+      <div className='my-10 cards flex flex-wrap justify-center gap-4'>
+        {!isLoading ? data.map((element, index) => (
+          <NewsCard
+            title={element.title}
+            description={element.description}
+            imgUrl={element.urlToImage}
+            publishedAt={element.publishedAt}
+            url={element.url}
+            author={element.author}
+            source={element.source.name}
+            key={index}
+          />
+        )) : <Spinner />}
       </div>
 
       {!isLoading && data.length > 0 && (
