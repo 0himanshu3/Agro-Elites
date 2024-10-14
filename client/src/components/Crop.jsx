@@ -1,18 +1,17 @@
 import React, { useState } from 'react';
-import { Card, Button } from 'flowbite-react';
+import { Button, Badge, Card } from 'flowbite-react';
 import { AiOutlinePlus, AiOutlineMinus } from 'react-icons/ai';
+import { GiPlantWatering } from 'react-icons/gi';
 
 export default function CropCard({ crop }) {
   const [quantity, setQuantity] = useState(0);
 
-  // Increase the quantity but don't exceed the available quantity
   const increment = () => {
     if (quantity < crop.quantity) {
       setQuantity(quantity + 1);
     }
   };
 
-  // Decrease the quantity but don't go below 0
   const decrement = () => {
     if (quantity > 0) {
       setQuantity(quantity - 1);
@@ -20,34 +19,47 @@ export default function CropCard({ crop }) {
   };
 
   return (
-    <Card>
-      <h2 className="text-xl font-semibold">{crop.name}</h2>
-      <p className="text-sm text-gray-500">Type: {crop.type}</p>
-      <p className="text-sm text-gray-500">Price per kg: ₹{crop.pricePerKg}</p>
-      <p className="text-sm text-gray-500">Available Quantity: {crop.quantity}</p>
-      <p className="text-sm text-gray-500">Farmer ID: {crop.userId}</p> {/* Display Farmer ID */}
-      
-      <div className="flex items-center mt-4">
-        <Button 
-          onClick={decrement} 
-          color="gray" 
-          pill 
-          disabled={quantity === 0} 
-          className="mr-2"
-        >
-          <AiOutlineMinus />
-        </Button>
-        <span className="text-lg">{quantity}</span>
-        <Button 
-          onClick={increment} 
-          color="gray" 
-          pill 
-          disabled={quantity === crop.quantity} 
-          className="ml-2"
-        >
-          <AiOutlinePlus />
-        </Button>
-      </div>
-    </Card>
+    <div className="p-4">
+      <Card className="flex flex-col gap-4 w-full max-w-xs dark:bg-slate-800 rounded-md shadow-md">
+        <div className="flex justify-between items-center">
+          <div>
+            <h3 className="text-gray-500 text-md uppercase">{crop.name}</h3>
+            <p className="text-xl font-semibold">{crop.quantity} Kg</p>
+          </div>
+          {/* Adjusted icon size */}
+          <GiPlantWatering className="text-teal-600 text-3xl" />
+        </div>
+        <p className="text-gray-500">Price per Kg: ₹{crop.pricePerKg}</p>
+        <p className="text-gray-500">Category: {crop.type}</p>
+        <p className="text-gray-500">Farmer ID: {crop.userId}</p>
+
+        {/* Badges for any special tags */}
+        <div className="flex flex-wrap gap-2">
+          <Badge color="success">Organic</Badge>
+          <Badge color="info">Fresh</Badge>
+        </div>
+
+        {/* Buttons for quantity control */}
+        <div className="flex justify-between gap-2 mt-4">
+          <Button 
+            onClick={decrement} 
+            color="gray" 
+            disabled={quantity === 0} 
+            className="flex items-center justify-center p-2"
+          >
+            <AiOutlineMinus className="text-lg" />
+          </Button>
+          <span className="text-lg flex items-center justify-center">{quantity}</span>
+          <Button 
+            onClick={increment} 
+            color="gray" 
+            disabled={quantity === crop.quantity} 
+            className="flex items-center justify-center p-2"
+          >
+            <AiOutlinePlus className="text-lg" />
+          </Button>
+        </div>
+      </Card>
+    </div>
   );
 }

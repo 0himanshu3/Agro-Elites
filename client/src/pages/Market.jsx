@@ -1,7 +1,7 @@
 import { Button, Select, TextInput } from 'flowbite-react';
 import { useEffect, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
-import CropCard from '../components/CropCard'; // Assuming you're using CropCard component for crops
+import CropCard from '../components/Crop'; // Assuming you're using CropCard component for crops
 
 export default function Market() {
   const [filterData, setFilterData] = useState({
@@ -175,11 +175,14 @@ export default function Market() {
           )}
           {loading && <p className='text-xl text-gray-500'>Loading...</p>}
           {!loading &&
-            crops.map((crop) => (
-              <div key={crop._id} className='flex flex-col'>
-                <CropCard crop={crop} />
-              </div>
-            ))}
+  crops
+    .filter((crop) => crop.quantity > 0) // Filter crops where quantity is greater than 0
+    .map((crop) => (
+      <div key={crop._id} className='flex flex-col'>
+        <CropCard crop={crop} />
+      </div>
+    ))}
+
           {showMore && (
             <button
               onClick={handleShowMore}
