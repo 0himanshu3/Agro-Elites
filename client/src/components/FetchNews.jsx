@@ -65,7 +65,7 @@ const FetchNews = () => {
             imgUrl={element.urlToImage}
             publishedAt={element.publishedAt}
             url={element.url}
-            author={element.author}
+            author={element.author && element.author.trim()!==""?element.author:"Not available"}
             source={element.source.name}
             key={index}
           />

@@ -22,7 +22,6 @@ export const getAllCrops = async (req, res) => {
       } else if (maxPrice) {
         query.pricePerKg = { $lte: maxPrice };
       }
-  
       const crops = await Crop.find(query);
       res.status(200).json({ crops });
     } catch (error) {
@@ -34,7 +33,7 @@ export const getAllCrops = async (req, res) => {
 export const getCrops = async (req, res) => {
     try {
         const userId = req.user.id; // Assuming you have user ID stored in req.user
-        const crops = await Crop.find({ userId: userId }); // Fetch crops specific to the user
+        const crops = await Crop.find({ userId: userId }); // Fetch crops specific to the user        
         res.json({ crops });
     } catch (error) {
         console.error(error);

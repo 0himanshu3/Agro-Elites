@@ -7,7 +7,7 @@ const router = express.Router();
 // Route to get all crops
 router.get('/getCrops',verifyToken, getCrops);
 
-router.get('/all',verifyToken, getAllCrops);
+router.get('/getAllCrops',verifyToken, getAllCrops);
 
 // Route to add a new crop
 router.post('/addCrop',verifyToken, addCrop);

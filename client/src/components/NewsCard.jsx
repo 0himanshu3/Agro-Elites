@@ -2,7 +2,7 @@ import React from 'react'
 
 function NewsCard(props) {
     return (
-        <div className="news-card mt-10 bg-yellow-50">
+        <div className="news-card mt-10 bg-yellow-50 dark:bg-slate-500 dark:hover:bg-slate-700">
             <div className="news-card flex flex-wrap p-5 gap-1 mb-1">
                 <b className="title font-semibold text-lg">{props.title}</b>
                 <div className="news-card-img mx-auto">
