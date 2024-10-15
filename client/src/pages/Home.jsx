@@ -4,6 +4,7 @@ import { useSelector } from 'react-redux';
 import PostCard from '../components/PostCard';
 import News from '../components/News';
 import User from '../../../api/models/user.model';
+import LinksSection from '../components/LinksSection';
 export default function Home() {
   const [posts, setPosts] = useState([]);
   const { currentUser } = useSelector((state) => state.user);
@@ -42,7 +43,6 @@ export default function Home() {
       <div className="bg-gradient-to-r from-yellow-200 to-yellow-400 p-6 rounded-lg mb-8 max-w-6xl mx-auto">
         <News />
       </div>
-
       <div className='max-w-6xl mx-auto p-3 py-7'>
         
         
@@ -62,7 +62,9 @@ export default function Home() {
             </Link>
           </div>
         )}
-       
+        <div className='py-4'>
+       <LinksSection/>
+       </div>
       </div>
     </div>
   );

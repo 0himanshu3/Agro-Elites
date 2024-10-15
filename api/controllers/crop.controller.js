@@ -8,11 +8,11 @@ export const getAllCrops = async (req, res) => {
       let query = {};
   
       if (searchTerm) {
-        query.name = { $regex: searchTerm, $options: 'i' }; // Case-insensitive search
+        query.name = { $regex: searchTerm, $options: 'i' };
       }
   
       if (category && category !== '') {
-        query.category = category;
+        query.type = category;
       }
   
       if (minPrice && maxPrice) {
