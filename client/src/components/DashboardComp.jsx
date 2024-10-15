@@ -1,7 +1,8 @@
 import { useEffect, useState } from 'react';
 import { Button, Modal } from 'flowbite-react';
 import { HiOutlineUserGroup, HiPlusCircle } from 'react-icons/hi';
-import CropCard from './CropCard'; // Separate component for individual crops
+import CropCard from './CropCard'; 
+import cropSuggestions from './CropSuggestions';
 
 export default function DashboardComp() {
   const [crops, setCrops] = useState([]);
@@ -9,6 +10,7 @@ export default function DashboardComp() {
   const [newCrop, setNewCrop] = useState({ name: '', type: '', quantity: '', pricePerKg: '' });
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
+  const [filteredSuggestions, setFilteredSuggestions] = useState([]); // State for filtered suggestions
 
   useEffect(() => {
     const fetchCrops = async () => {
@@ -16,7 +18,6 @@ export default function DashboardComp() {
         const res = await fetch('/api/crop/getCrops');
         const data = await res.json();
         if (res.ok) {
-          // Filter out crops with quantity > 0 initially
           const filteredCrops = data.crops.filter((crop) => crop.quantity > 0);
           setCrops(filteredCrops);
           setTotalCrops(filteredCrops.length);
@@ -37,16 +38,14 @@ export default function DashboardComp() {
         body: JSON.stringify({ cropId, quantity: newQuantity }),
       });
 
-      // Update the crop list locally after server update
       setCrops((prevCrops) => {
         const updatedCrops = prevCrops
           .map((crop) =>
             crop._id === cropId ? { ...crop, quantity: newQuantity } : crop
           )
-          // Filter out crops with quantity 0
           .filter((crop) => crop.quantity > 0);
 
-        setTotalCrops(updatedCrops.length); // Update total crops count
+        setTotalCrops(updatedCrops.length);
         return updatedCrops;
       });
     } catch (error) {
@@ -60,6 +59,17 @@ export default function DashboardComp() {
       ...newCrop,
       [name]: value,
     });
+
+    if (name === 'name') {
+      const filtered = cropSuggestions.filter(crop =>
+        crop.toLowerCase().includes(value.toLowerCase())
+      );
+      setFilteredSuggestions(filtered);
+    }
+
+    if (name === 'name' && value.trim() === '') {
+      setFilteredSuggestions([]);
+    }
   };
 
   const handleAddCrop = async (e) => {
@@ -88,9 +98,9 @@ export default function DashboardComp() {
           setCrops([...crops, data.crop]);
           setTotalCrops(totalCrops + 1);
         }
-        setNewCrop({ name: '', type: '', quantity: '', pricePerKg: '' }); // Clear the form
-        setIsModalOpen(false); // Close the modal
-        setErrorMessage(''); // Clear any error message
+        setNewCrop({ name: '', type: '', quantity: '', pricePerKg: '' });
+        setIsModalOpen(false);  
+        setErrorMessage('');
       }
     } catch (error) {
       console.log(error.message);
@@ -99,7 +109,13 @@ export default function DashboardComp() {
 
   const toggleModal = () => {
     setIsModalOpen(!isModalOpen);
-    setErrorMessage(''); // Reset error when modal is toggled
+    setErrorMessage('');
+    setFilteredSuggestions([]); 
+  };
+
+  const handleSuggestionClick = (suggestion) => {
+    setNewCrop({ ...newCrop, name: suggestion });
+    setFilteredSuggestions([]); 
   };
 
   return (
@@ -115,7 +131,7 @@ export default function DashboardComp() {
         </div>
         <div>
           <Button onClick={toggleModal} outline gradientDuoTone="purpleToPink" className="flex items-center gap-2">
-            <HiPlusCircle />
+            <HiPlusCircle className='mt-1 mr-1'/>
             <span>Add New Crop</span>
           </Button>
         </div>
@@ -133,7 +149,7 @@ export default function DashboardComp() {
         <Modal.Header>Add a New Crop</Modal.Header>
         <Modal.Body>
           <form onSubmit={handleAddCrop} className="space-y-4">
-            <div>
+            <div className="relative"> 
               <label htmlFor="name" className="block text-sm font-medium text-gray-700">
                 Crop Name
               </label>
@@ -145,6 +161,21 @@ export default function DashboardComp() {
                 className="mt-1 p-2 block w-full border rounded-md"
                 required
               />
+              {filteredSuggestions.length > 0 && (
+                <ul className="absolute z-10 bg-white border border-gray-300 rounded-md mt-1 max-h-60 overflow-auto">
+                  {filteredSuggestions.map((suggestion) => (
+                    <li
+                      key={suggestion}
+                      onClick={() => handleSuggestionClick(suggestion)}
+                      className="p-2 hover:bg-gray-200 cursor-pointer"
+                      role="option" 
+                      aria-selected="false" 
+                    >
+                      {suggestion}
+                    </li>
+                  ))}
+                </ul>
+              )}
             </div>
             <div>
               <label htmlFor="type" className="block text-sm font-medium text-gray-700">
