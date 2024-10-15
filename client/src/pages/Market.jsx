@@ -126,9 +126,9 @@ export default function Market() {
             <label className='font-semibold'>Category:</label>
             <Select onChange={handleChange} value={filterData.category} id='category'>
               <option value=''>All Categories</option>
-              <option value='vegetables'>Vegetables</option>
-              <option value='fruits'>Fruits</option>
-              <option value='grains'>Grains</option>
+              <option value='Vegetables'>Vegetables</option>
+              <option value='Fruits'>Fruits</option>
+              <option value='Grains'>Grains</option>
             </Select>
           </div>
 
