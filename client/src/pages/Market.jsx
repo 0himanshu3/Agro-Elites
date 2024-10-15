@@ -124,11 +124,16 @@ export default function Market() {
 
           <div className='flex items-center gap-2'>
             <label className='font-semibold'>Category:</label>
-            <Select onChange={handleChange} value={filterData.category} id='category'>
+            <Select onChange={handleChange} value={filterData.category} id='category' className='p-2 rounded-md max-h-60 overflow-y-auto'>
               <option value=''>All Categories</option>
               <option value='vegetables'>Vegetables</option>
               <option value='fruits'>Fruits</option>
-              <option value='grains'>Grains</option>
+              <option value='Medicinal'>Medicinal</option>
+              <option value='Oilseeds'>Oilseeds</option>
+              <option value='Fibers'>Fibers</option>
+              <option value='Herbs'>Herbs</option>
+              <option value='Herbs'>Herbs</option>
+              <option value='Other'>Other</option>
             </Select>
           </div>
 
@@ -173,15 +178,15 @@ export default function Market() {
           {!loading && crops.length === 0 && (
             <p className='text-xl text-gray-500'>No crops found.</p>
           )}
-          {loading && <p className='text-xl text-gray-500'>Loading...</p>}
+          {loading && <p className='text-xl text-gray-500 min-h-64'>Loading...</p>}
           {!loading &&
-  crops
-    .filter((crop) => crop.quantity > 0) // Filter crops where quantity is greater than 0
-    .map((crop) => (
-      <div key={crop._id} className='flex flex-col'>
-        <CropCard crop={crop} />
-      </div>
-    ))}
+            crops
+              .filter((crop) => crop.quantity > 0) // Filter crops where quantity is greater than 0
+              .map((crop) => (
+                <div key={crop._id} className='flex flex-col'>
+                  <CropCard crop={crop} />
+                </div>
+              ))}
 
           {showMore && (
             <button

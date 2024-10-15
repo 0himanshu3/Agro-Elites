@@ -59,12 +59,12 @@ export default function Header() {
               <Avatar alt='user' img={currentUser.profilePicture} rounded />
             }
           >
-            <Dropdown.Header>
+            {/* <Dropdown.Header>
               <span className='block text-sm'>@{currentUser.username}</span>
               <span className='block text-sm font-medium truncate'>
                 {currentUser.email}
               </span>
-            </Dropdown.Header>
+            </Dropdown.Header> */}
             <Link to={'/dashboard?tab=profile'}>
               <Dropdown.Item>Profile</Dropdown.Item>
             </Link>

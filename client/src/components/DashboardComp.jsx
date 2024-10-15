@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { Button, Modal } from 'flowbite-react';
 import { HiOutlineUserGroup, HiPlusCircle } from 'react-icons/hi';
-import CropCard from './CropCard'; 
+import CropCard from './CropCard';
 import cropSuggestions from './CropSuggestions';
 
 export default function DashboardComp() {
@@ -10,7 +10,8 @@ export default function DashboardComp() {
   const [newCrop, setNewCrop] = useState({ name: '', type: '', quantity: '', pricePerKg: '' });
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
-  const [filteredSuggestions, setFilteredSuggestions] = useState([]); // State for filtered suggestions
+  const [filteredSuggestions, setFilteredSuggestions] = useState([]);
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
   useEffect(() => {
     const fetchCrops = async () => {
@@ -26,7 +27,6 @@ export default function DashboardComp() {
         console.log(error.message);
       }
     };
-
     fetchCrops();
   }, []);
 
@@ -75,7 +75,6 @@ export default function DashboardComp() {
   const handleAddCrop = async (e) => {
     e.preventDefault();
 
-    // Check if crop already exists in inventory
     const cropExists = crops.some((crop) => crop.name.toLowerCase() === newCrop.name.toLowerCase());
     if (cropExists) {
       setErrorMessage('Crop already in inventory');
@@ -93,13 +92,12 @@ export default function DashboardComp() {
 
       const data = await res.json();
       if (res.ok) {
-        // Only add the crop to the list if its quantity is greater than 0
         if (data.crop.quantity > 0) {
           setCrops([...crops, data.crop]);
           setTotalCrops(totalCrops + 1);
         }
         setNewCrop({ name: '', type: '', quantity: '', pricePerKg: '' });
-        setIsModalOpen(false);  
+        setIsModalOpen(false);
         setErrorMessage('');
       }
     } catch (error) {
@@ -110,17 +108,18 @@ export default function DashboardComp() {
   const toggleModal = () => {
     setIsModalOpen(!isModalOpen);
     setErrorMessage('');
-    setFilteredSuggestions([]); 
+    setFilteredSuggestions([]);
   };
 
   const handleSuggestionClick = (suggestion) => {
     setNewCrop({ ...newCrop, name: suggestion });
-    setFilteredSuggestions([]); 
+    setFilteredSuggestions([]);
   };
+
+  const cropTypes = ["Vegetables", "Fruits", "Grains", "Medicinal", "Oilseeds", "Fiber based", "Herbs", "Other"];
 
   return (
     <div className="p-3 md:mx-auto">
-      {/* Display Total Crops and Add New Crop */}
       <div className="flex justify-between p-4">
         <div className="flex items-center gap-2">
           <HiOutlineUserGroup className="bg-teal-600 text-white rounded-full text-5xl p-3 shadow-lg" />
@@ -131,25 +130,23 @@ export default function DashboardComp() {
         </div>
         <div>
           <Button onClick={toggleModal} outline gradientDuoTone="purpleToPink" className="flex items-center gap-2">
-            <HiPlusCircle className='mt-1 mr-1'/>
+            <HiPlusCircle className='mt-1 mr-1' />
             <span>Add New Crop</span>
           </Button>
         </div>
       </div>
 
-      {/* Crops Inventory */}
       <div className="flex flex-wrap gap-4 py-3 mx-auto justify-center">
         {crops.map((crop) => (
           <CropCard key={crop._id} crop={crop} onUpdateQuantity={handleUpdateQuantity} />
         ))}
       </div>
 
-      {/* Modal for Adding New Crop */}
       <Modal show={isModalOpen} onClose={toggleModal}>
         <Modal.Header>Add a New Crop</Modal.Header>
         <Modal.Body>
           <form onSubmit={handleAddCrop} className="space-y-4">
-            <div className="relative"> 
+            <div className="relative">
               <label htmlFor="name" className="block text-sm font-medium text-gray-700">
                 Crop Name
               </label>
@@ -168,8 +165,8 @@ export default function DashboardComp() {
                       key={suggestion}
                       onClick={() => handleSuggestionClick(suggestion)}
                       className="p-2 hover:bg-gray-200 cursor-pointer"
-                      role="option" 
-                      aria-selected="false" 
+                      role="option"
+                      aria-selected="false"
                     >
                       {suggestion}
                     </li>
@@ -177,18 +174,33 @@ export default function DashboardComp() {
                 </ul>
               )}
             </div>
-            <div>
+            <div className="relative">
               <label htmlFor="type" className="block text-sm font-medium text-gray-700">
                 Crop Type
               </label>
-              <input
-                type="text"
-                name="type"
-                value={newCrop.type}
-                onChange={handleInputChange}
-                className="mt-1 p-2 block w-full border rounded-md"
-                required
-              />
+              <button
+                type="button"
+                onClick={() => setIsDropdownOpen(!isDropdownOpen)}
+                className="p-2 block w-full border rounded-md mt-1 text-left"
+              >
+                {newCrop.type || 'Select Crop Type'}
+              </button>
+              {isDropdownOpen && (
+                <ul className="absolute z-10 bg-white border border-gray-300 rounded-md mt-1 max-h-40 overflow-auto w-full">
+                  {cropTypes.map((type) => (
+                    <li
+                      key={type}
+                      onClick={() => {
+                        setNewCrop({ ...newCrop, type });
+                        setIsDropdownOpen(false);
+                      }}
+                      className="p-2 hover:bg-gray-200 cursor-pointer"
+                    >
+                      {type}
+                    </li>
+                  ))}
+                </ul>
+              )}
             </div>
             <div>
               <label htmlFor="quantity" className="block text-sm font-medium text-gray-700">

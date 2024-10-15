@@ -20,10 +20,10 @@ export default function CropCard({ crop, onUpdateQuantity }) {
   };
 
   return (
-    <div className="flex flex-col p-3 dark:bg-slate-800 gap-4 w-full md:w-72 rounded-md shadow-md">
+    <div className="flex flex-col p-3 dark:bg-slate-800 gap-3 w-full md:w-72 rounded-md shadow-md">
       <div className="flex justify-between">
         <div>
-          <h3 className="text-gray-500 text-md uppercase">{crop.name}</h3>
+          <h3 className="text-gray-500 text-3xl uppercase">{crop.name}</h3>
           <p className="text-2xl">{quantity} Kg</p>
         </div>
         <HiOutlineUserGroup className="bg-teal-600 text-white rounded-full text-5xl p-3 shadow-lg" />
