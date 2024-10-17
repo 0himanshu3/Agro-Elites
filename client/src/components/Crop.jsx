@@ -41,19 +41,28 @@ export default function CropCard({ crop }) {
 
         {/* Buttons for quantity control */}
         <div className="flex justify-between gap-2 mt-4">
-          <Button 
-            onClick={decrement} 
-            color="gray" 
-            disabled={quantity === 0} 
+          <Button
+            onClick={decrement}
+            color="gray"
+            disabled={quantity === 0}
             className="flex items-center justify-center p-2"
           >
             <AiOutlineMinus className="text-lg" />
           </Button>
-          <span className="text-lg flex items-center justify-center">{quantity}</span>
-          <Button 
-            onClick={increment} 
-            color="gray" 
-            disabled={quantity === crop.quantity} 
+          <input
+            type="text" value={quantity} 
+            onChange={(e) => {
+              const value = e.target.value;
+              if (/^\d*$/.test(value)) {
+                setQuantity(Number(value));
+              }
+            }}
+            className="bg-transparent text-center w-16 text-xl outline-none"
+          />
+          <Button
+            onClick={increment}
+            color="gray"
+            disabled={quantity === crop.quantity}
             className="flex items-center justify-center p-2"
           >
             <AiOutlinePlus className="text-lg" />

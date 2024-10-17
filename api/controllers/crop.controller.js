@@ -99,3 +99,28 @@ export const updateQuantity = async (req, res) => {
         res.status(500).json({ message: 'Failed to update quantity' });
     }
 };
+
+// Delete a crop
+export const deleteCrop = async (req, res) => {
+  const { cropId } = req.body;
+
+  if (!cropId) {
+      return res.status(400).json({ message: 'Crop ID is required' });
+  }
+
+  try {
+      const userId = req.user.id;
+
+      const deletedCrop = await Crop.findOneAndDelete({ _id: cropId, userId: userId });
+
+      if (!deletedCrop) {
+          return res.status(404).json({ message: 'Crop not foundr' });
+      }
+
+      res.status(200).json({ message: 'Crop deleted successfully' });
+  }
+  catch (error) {
+      console.error(error);
+      res.status(500).json({ message: 'Failed to delete crop' });
+  }
+};

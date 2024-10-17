@@ -69,6 +69,13 @@ export default function Market() {
     navigate(`/market?${searchQuery}`);
   };
 
+  const handlePriceChange = (e) => {
+    const { id, value } = e.target;
+    if (id === "quantity" && !/^\d*$/.test(value))
+        return;
+    setFilterData({ ...filterData, [id]: value });
+  }
+
   const handleShowMore = async () => {
     const numberOfCrops = crops.length;
     const urlParams = new URLSearchParams(location.search);
@@ -140,10 +147,10 @@ export default function Market() {
             <label className='font-semibold'>Min Price:</label>
             <TextInput
               id='minPrice'
-              type='number'
+              type='text'
               value={filterData.minPrice}
-              onChange={handleChange}
-              placeholder='Min Price'
+              onChange={handlePriceChange}
+              placeholder='0'
             />
           </div>
 
@@ -151,10 +158,10 @@ export default function Market() {
             <label className='font-semibold'>Max Price:</label>
             <TextInput
               id='maxPrice'
-              type='number'
+              type='text'
               value={filterData.maxPrice}
-              onChange={handleChange}
-              placeholder='Max Price'
+              onChange={handlePriceChange}
+              placeholder='0'
             />
           </div>
 

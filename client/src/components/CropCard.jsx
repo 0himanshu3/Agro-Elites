@@ -1,6 +1,7 @@
 import { HiOutlineUserGroup } from 'react-icons/hi';
 import { Button } from 'flowbite-react';
 import { useState } from 'react';
+import { deleteCrop } from '../../../api/controllers/crop.controller';
 
 export default function CropCard({ crop, onUpdateQuantity }) {
   const [quantity, setQuantity] = useState(crop.quantity);
@@ -19,6 +20,10 @@ export default function CropCard({ crop, onUpdateQuantity }) {
     }
   };
 
+  const handleSoldCrops = () => {
+    deleteCrop(crop._id);
+  }
+
   return (
     <div className="flex flex-col p-3 dark:bg-slate-800 gap-3 w-full md:w-72 rounded-md shadow-md">
       <div className="flex justify-between">
@@ -35,6 +40,9 @@ export default function CropCard({ crop, onUpdateQuantity }) {
       <div className="flex justify-between gap-2">
         <Button color="gray" onClick={handleDecreaseQuantity} disabled={quantity === 0}>
           -
+        </Button>
+        <Button className='bg-red-600 dark:bg-red-600 hover:bg-red-500' onClick={handleSoldCrops}>
+          Sold
         </Button>
         <Button color="gray" onClick={handleIncreaseQuantity}>
           +
