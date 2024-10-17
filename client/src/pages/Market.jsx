@@ -43,7 +43,6 @@ export default function Market() {
       setLoading(true);
       // If no filters applied, fetch all crops
       const searchQuery = isFilterApplied ? urlParams.toString() : '';
-      console.log(searchQuery);
       const res = await fetch(`/api/crop/getAllCrops?${searchQuery}`);
       if (!res.ok) {
         setLoading(false);

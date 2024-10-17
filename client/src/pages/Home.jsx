@@ -5,6 +5,7 @@ import PostCard from '../components/PostCard';
 import News from '../components/News';
 import User from '../../../api/models/user.model';
 import LinksSection from '../components/LinksSection';
+import Schemes from '../components/Schemes';
 export default function Home() {
   const [posts, setPosts] = useState([]);
   const { currentUser } = useSelector((state) => state.user);
@@ -38,11 +39,29 @@ export default function Home() {
           Know More About Us
         </Link>
       </div>
+      {currentUser && !currentUser.isFarmer && (
+        <div className="bg-gradient-to-r from-yellow-200 to-yellow-400 p-6 rounded-lg mb-8 max-w-6xl mx-auto">
+          <News />
+        </div>
+      )}
 
-      {/* Sliding News Section */}
-      <div className="bg-gradient-to-r from-yellow-200 to-yellow-400 p-6 rounded-lg mb-8 max-w-6xl mx-auto">
-        <News />
-      </div>
+      {(!currentUser || currentUser.isFarmer) && (
+        <div className="flex flex-col md:flex-row space-y-6 md:space-y-0 md:space-x-6">
+          {/* News Section */}
+          <div className="bg-gradient-to-r from-yellow-200 to-yellow-400 p-6 rounded-lg flex-1 hover:shadow-lg transition-shadow duration-300">
+            <News />
+          </div>
+
+          {/* Scheme Section */}
+          <div className="bg-gradient-to-r from-green-200 to-green-400 p-6 rounded-lg flex-1 hover:shadow-lg transition-shadow duration-300">
+            <Schemes />
+          </div>
+        </div>
+      )}
+       
+      <div className="max-w-6xl mx-auto p-6">
+ 
+</div>
       <div className='max-w-6xl mx-auto p-3 py-7'>
         
         
