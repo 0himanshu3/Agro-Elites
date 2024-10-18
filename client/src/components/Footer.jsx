@@ -9,12 +9,14 @@ export default function FooterCom() {
           <div className='mt-5'>
             <Link
               to='/'
-              className='self-center whitespace-nowrap text-lg sm:text-xl font-semibold dark:text-white'
+              className='self-center whitespace-nowrap text-lg sm:text-xl font-semibold dark:text-white font-aclonica'
             >
-              <span className='px-2 py-1 bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 rounded-lg text-white'>
-                Krishi
-              </span>
-              Help
+             <span className='px-3 py-2 bg-gradient-to-r from-green-800 via-green-600 to-green-400 rounded-lg text-white font-aclonica'>
+      Krishi
+    </span>
+    
+
+        Help
             </Link>
           </div>
           <div className='grid grid-cols-2 gap-8 mt-4 sm:grid-cols-3 sm:gap-6'>
@@ -57,7 +59,7 @@ export default function FooterCom() {
         <div className='w-full sm:flex sm:items-center sm:justify-between'>
           <Footer.Copyright
             href='#'
-            by="Krishi-help"
+            by="Krishi-Help"
             year={new Date().getFullYear()}
           />
           <div className="flex gap-6 sm:mt-0 mt-4 sm:justify-center">
