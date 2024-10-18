@@ -1,5 +1,5 @@
 import express from "express"
-import { getCrops,addCrop,updateQuantity,getAllCrops,deleteCrop } from "../controllers/crop.controller.js";
+import { getCrops,addCrop,updateQuantity,getAllCrops,deleteCrop, updatePrice } from "../controllers/crop.controller.js";
 import { verifyToken } from "../utils/verifyUser.js";
 
 const router = express.Router();
@@ -14,6 +14,7 @@ router.post('/addCrop',verifyToken, addCrop);
 
 router.post('/updateQuantity',verifyToken, updateQuantity);
 
+router.post('/updatePrice',verifyToken,updatePrice)
 //Route to delete a crop
 router.delete('/deleteCrop',verifyToken, deleteCrop);
 

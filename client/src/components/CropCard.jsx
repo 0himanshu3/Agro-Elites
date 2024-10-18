@@ -3,8 +3,9 @@ import { Button } from 'flowbite-react';
 import { useState } from 'react';
 import { deleteCrop } from '../../../api/controllers/crop.controller';
 
-export default function CropCard({ crop, onUpdateQuantity }) {
+export default function CropCard({ crop, onUpdateQuantity, onUpdatePrice }) {
   const [quantity, setQuantity] = useState(crop.quantity);
+  const [pricePerKg, setPricePerKg] = useState(crop.pricePerKg);
 
   const handleIncreaseQuantity = async () => {
     const newQuantity = quantity + 1;
@@ -20,9 +21,15 @@ export default function CropCard({ crop, onUpdateQuantity }) {
     }
   };
 
+  const handlePriceChange = (e) => {
+    const newPrice = e.target.value;
+    setPricePerKg(newPrice);
+    onUpdatePrice(crop._id, newPrice); // Notify parent component of price update
+  };
+
   const handleSoldCrops = () => {
     deleteCrop(crop._id);
-  }
+  };
 
   return (
     <div className="flex flex-col p-3 dark:bg-slate-800 gap-3 w-full md:w-72 rounded-md shadow-md">
@@ -33,7 +40,18 @@ export default function CropCard({ crop, onUpdateQuantity }) {
         </div>
         <HiOutlineUserGroup className="bg-teal-600 text-white rounded-full text-5xl p-3 shadow-lg" />
       </div>
-      <p className="text-gray-500">Price per Kg: ₹{crop.pricePerKg}</p>
+
+      {/* Editable price */}
+      <div className="flex items-center gap-2">
+        <p className="text-gray-500">Price per Kg: ₹</p>
+        <input 
+          type="number" 
+          className="bg-gray-100 p-2 rounded-md w-full dark:bg-gray-700 dark:text-white" 
+          value={pricePerKg}
+          onChange={handlePriceChange}
+        />
+      </div>
+
       <p className="text-gray-500">Category: {crop.type}</p>
 
       {/* Buttons for increasing and decreasing quantity */}
@@ -41,7 +59,7 @@ export default function CropCard({ crop, onUpdateQuantity }) {
         <Button color="gray" onClick={handleDecreaseQuantity} disabled={quantity === 0}>
           -
         </Button>
-        <Button className='bg-red-600 dark:bg-red-600 hover:bg-red-500' onClick={handleSoldCrops}>
+        <Button className="bg-red-600 dark:bg-red-600 hover:bg-red-500" onClick={handleSoldCrops}>
           Sold
         </Button>
         <Button color="gray" onClick={handleIncreaseQuantity}>
