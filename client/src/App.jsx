@@ -21,6 +21,7 @@ import Cart from './pages/Cart/Cart'
 import Shops from './pages/Shops'
 import Trends from './pages/Trends'
 import Donation from './pages/Donation'
+import OrderHistory from './pages/OrderHistory'
 function App() {
   return (
 
@@ -36,6 +37,10 @@ function App() {
       <Route element={<PrivateRoute />}>
           <Route path='/dashboard' element={<Dashboard />} />
         </Route>
+        <Route element={<PrivateRoute />}>
+          <Route path='/orderhistory' element={<OrderHistory />} />
+        </Route>
+
 
         <Route element={<OnlyAdminPrivateRoute />}>
           <Route path='/create-post' element={<CreatePost />} />

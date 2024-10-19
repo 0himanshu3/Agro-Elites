@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react';
-import { useSelector } from 'react-redux'; // Import useSelector for fetching from Redux
-import axios from 'axios'; // For API requests
+import { useSelector } from 'react-redux';
+import axios from 'axios';
 
 const OrderHistory = () => {
   const [orderHistory, setOrderHistory] = useState([]);
-  const currUser = useSelector((state) => state.user); // Fetching current user from Redux
+  const currUser = useSelector((state) => state.user);
 
   useEffect(() => {
     const fetchOrderHistory = async () => {
@@ -12,7 +12,7 @@ const OrderHistory = () => {
         if (currUser && currUser.currentUser && currUser.currentUser._id) {
           const res = await axios.get(`/api/order/getorders/${currUser.currentUser._id}`);
           if (res.status === 200) {
-            setOrderHistory(res.data); 
+            setOrderHistory(res.data.orders); 
           }
         }
       } catch (error) {
@@ -21,21 +21,31 @@ const OrderHistory = () => {
     };
 
     fetchOrderHistory();
-  }, [currUser]); 
+  }, [currUser]);
 
   return (
     <div>
       <h1>Order History</h1>
       <ul>
         {orderHistory.length > 0 ? (
-          orderHistory.map((order, index) => (
-            <li key={index}>
-              <p>Order ID: {order._id}</p>
+          orderHistory.map((order) => (
+            <li key={order._id}>
+              <h2>Order ID: {order._id}</h2>
               <p>Date: {new Date(order.createdAt).toLocaleDateString()}</p>
-              <p>
-                Items: {order.items.map(item => `${item.cropId} (Qty: ${item.qty})`).join(', ')}
-              </p>
-              <p>Total: ₹{order.totalPrice}</p>
+              <p>Status: {order.status}</p>
+              <h3>Items:</h3>
+              <ul>
+                {order.items.map((item, index) => (
+                  <li key={index}>
+                    <p>Crop ID: {item.cropId}</p>
+                    <p>Farmer ID: {item.farmerId}</p>
+                    <p>Quantity: {item.qty}</p>
+                    <p>Price per kg: ₹{item.pricePerKg}</p>
+                  </li>
+                ))}
+              </ul>
+              <p>Total Price: ₹{order.totalPrice}</p>
+              <p>Payment ID: {order.paymentId}</p>
             </li>
           ))
         ) : (
