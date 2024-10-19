@@ -6,7 +6,7 @@ function About() {
   return (
     <>
       <Objectives />
-      <div className="bg-gray-100 p-6 rounded-lg text-center">
+      <div className="bg-gray-100 p-6 rounded-lg text-center dark:bg-slate-700">
         <p className="text-lg mb-4">
           If you would like to support our cause and help farmers in need, 
           please consider making a donation through our portal.

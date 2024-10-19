@@ -37,7 +37,7 @@ export default function SuccessStories() {
         style={{ transform: `translateX(-${currentIndex * 100}%)` }}
       >
         {successStories.map((story, index) => (
-          <div key={index} className="min-w-full h-[700px] relative">
+          <div key={index} className="min-w-full h-[550px] relative">
             <div
               className="w-full h-full bg-cover bg-center"
               style={{ backgroundImage: `url(${story.image})` }}
