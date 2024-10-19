@@ -7,7 +7,9 @@ import cookieParser from 'cookie-parser';
 import postRoutes from "./routes/post.route.js"
 import commentRoutes from "./routes/comment.route.js"
 import cropRoutes from "./routes/crop.route.js"
+import paymentRoute from "./routes/paymentRoutes.js"
 import axios from "axios"
+import cors from "cors";  // Import CORS
 dotenv.config();
 
 mongoose.connect(process.env.MONGO).then(()=>{
@@ -19,7 +21,7 @@ mongoose.connect(process.env.MONGO).then(()=>{
 
 
 const app=express()
-
+app.use(cors());  // Enable CORS
 app.use(express.json())
 app.use(cookieParser())
 
@@ -145,7 +147,7 @@ app.use('/api/auth',authRoutes)
 app.use("/api/post",postRoutes)
 app.use('/api/comment',commentRoutes)
 app.use('/api/crop',cropRoutes)
-
+app.use('/',paymentRoute)
 //middleware
 app.use((err, req, res, next) => {
     const statusCode = err.statusCode || 500;

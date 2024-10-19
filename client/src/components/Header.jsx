@@ -1,17 +1,33 @@
 import { Avatar, Button, Dropdown, Navbar } from 'flowbite-react';
 import { Link, useLocation, useNavigate } from 'react-router-dom'; // Import useNavigate
+import React, { useState, useEffect } from "react";
 import { AiOutlineSearch } from 'react-icons/ai';
 import { FaMoon, FaSun } from 'react-icons/fa';
 import { useSelector, useDispatch } from 'react-redux';
 import { toggleTheme } from '../redux/theme/themeSlice';
 import { signoutSuccess } from '../redux/user/userSlice';
-
+import {signoutCart} from '../redux/cart/cartSlice';
+import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 export default function Header() {
   const path = useLocation().pathname;
   const dispatch = useDispatch();
   const { currentUser } = useSelector((state) => state.user);
   const { theme } = useSelector((state) => state.theme);
   const navigate = useNavigate(); // Use useNavigate for navigation
+
+  const cart =  useSelector((state)=>{
+    return state.shop.cart;})
+    const [cartCount, setCartCount] = useState(0);
+  
+    useEffect(() => {
+      let count = 0;
+      cart.forEach((item) => {
+        count += 1;
+      });
+  
+      setCartCount(count);
+    }, [cart, cartCount]);
+
 
   const handleSignout = async () => {
     try {
@@ -23,6 +39,7 @@ export default function Header() {
         console.log(data.message);
       } else {
         dispatch(signoutSuccess());
+        dispatch(signoutCart());
         navigate('/'); // Redirect to the home page after successful signout
       }
     } catch (error) {
@@ -54,6 +71,10 @@ export default function Header() {
           {theme === 'light' ? <FaSun /> : <FaMoon />}
         </Button>
         {currentUser ? (
+          <>
+          {!currentUser.isFarmer && (<Link to='/cart' style={{color:'#2f3542'}}>
+          <Button color="inherit">Cart<ShoppingCartIcon style={{marginLeft:'12%', marginRight:'1%'}}/><span className='cartNumber' style={{}}>{cartCount}</span></Button>
+          </Link>)}
           <Dropdown
             arrowIcon={false}
             inline
@@ -73,6 +94,7 @@ export default function Header() {
             <Dropdown.Divider />
             <Dropdown.Item onClick={handleSignout}>Sign out</Dropdown.Item>
           </Dropdown>
+          </>
         ) : (
           <Link to='/sign-in'>
             <Button gradientDuoTone='purpleToBlue' outline>

@@ -1,9 +1,12 @@
 import { Button, Select, TextInput } from 'flowbite-react';
 import { useEffect, useState } from 'react';
+import {useDispatch} from 'react-redux';
+import { addCrops } from '../redux/cart/cartSlice';
 import { useLocation, useNavigate } from 'react-router-dom';
 import CropCard from '../components/Crop'; // Assuming you're using CropCard component for crops
 
 export default function Market() {
+  const dispatch = useDispatch();
   const [filterData, setFilterData] = useState({
     searchTerm: '',
     category: '',
@@ -50,6 +53,9 @@ export default function Market() {
       }
       const data = await res.json();
       setCrops(data.crops);
+      // setting the crops array into the global store 
+      dispatch(addCrops(data.crops));
+      console.log(data.crops);
       setLoading(false);
       setShowMore(data.crops.length === 9); // Adjust based on pagination logic
     };

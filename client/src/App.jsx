@@ -17,6 +17,7 @@ import ScrollToTop from './components/ScrollToTop'
 import News from './pages/News'
 import Search from './pages/Search'
 import Market from './pages/Market'
+import Cart from './pages/Cart/Cart'
 import Shops from './pages/Shops'
 import Trends from './pages/Trends'
 import Donation from './pages/Donation'
@@ -44,6 +45,7 @@ function App() {
       <Route path="/news" element={<News/>}></Route>
       <Route path="/post/:postSlug" element={<PostPage />}></Route>
       <Route path='/market' element={<Market />} />
+      <Route path="/cart" element={<Cart />} />
       <Route path='/shops' element={<Shops/>} />
       <Route path='/trends' element={<Trends/>} />
       <Route path='/donation-portal' element={<Donation/>} />
