@@ -2,14 +2,17 @@ import React, { useState } from 'react';
 import { Button, Badge, Card } from 'flowbite-react';
 import { AiOutlinePlus, AiOutlineMinus } from 'react-icons/ai';
 import { GiPlantWatering } from 'react-icons/gi';
-
+import {useDispatch,useSelector} from 'react-redux'
+import { addToCart , removeFromCart } from '../redux/cart/cartSlice';
 export default function CropCard({ crop }) {
   const [quantity, setQuantity] = useState(0);
+  const dispatch = useDispatch();
 
   const increment = () => {
     if (quantity < crop.quantity) {
       setQuantity(quantity + 1);
     }
+    
   };
 
   const decrement = () => {
@@ -17,6 +20,10 @@ export default function CropCard({ crop }) {
       setQuantity(quantity - 1);
     }
   };
+
+  const handleAdd = () =>{
+    dispatch(addToCart({id:crop._id,qty:quantity}))
+  }
 
   return (
     <div className="p-4">
@@ -31,7 +38,7 @@ export default function CropCard({ crop }) {
         </div>
         <p className="text-gray-500">Price per Kg: ₹{crop.pricePerKg}</p>
         <p className="text-gray-500">Category: {crop.type}</p>
-        <p className="text-gray-500">Farmer ID: {crop.userId}</p>
+        <p className="text-gray-500">Farmer ID:  {crop.userId}</p>
 
         {/* Badges for any special tags */}
         <div className="flex flex-wrap gap-2">
@@ -57,6 +64,14 @@ export default function CropCard({ crop }) {
             className="flex items-center justify-center p-2"
           >
             <AiOutlinePlus className="text-lg" />
+          </Button>
+          <Button 
+            onClick={handleAdd} 
+            color="gray" 
+            disabled={quantity === 0} 
+            className="flex items-center justify-center p-2"
+          >
+            Add to cart
           </Button>
         </div>
       </Card>
