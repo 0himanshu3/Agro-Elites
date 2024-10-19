@@ -14,14 +14,6 @@ const donationSchema = new mongoose.Schema(
       type: String,
       required: true, 
     },
-    order_id: {
-      type: String,
-      required: true,  
-    },
-    signature: {
-      type: String,
-      required: true,  
-    },
   },
   { timestamps: true }  
 );

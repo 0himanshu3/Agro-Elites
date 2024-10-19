@@ -2,14 +2,12 @@ import Donation from "../models/donation.model.js";
 
 export const donationCompletion = async (req, res) => {
   try {
-    const { phoneNumber, amount, payment_id, order_id, signature } = req.body;
+    const { phoneNumber, amount, payment_id} = req.body;
 
     const newDonation = new Donation({
       phoneNumber,
       amount,
-      payment_id,  
-      order_id,   
-      signature,   
+      payment_id,    
     });
 
     await newDonation.save();

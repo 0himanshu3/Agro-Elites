@@ -11,6 +11,7 @@ import axios from 'axios'; // For making API requests
 function Cart1() {
    const navigate = useNavigate();
    // cart ko store se yaha par laaya jaaye
+   const currUser = useSelector((state) => state.user);
    const cart =  useSelector((state)=>{
     return state.shop.cart;
     })
@@ -18,56 +19,80 @@ function Cart1() {
     const dispatch = useDispatch();
 
     const handlePayment = async () => {
-      try {
-        // Send request to your backend to create a Razorpay order
-        const { data } = await axios.post('http://localhost:3000/createOrder', {
-          amount: totalPrice,
-          name: 'Cart Purchase',
-          description: 'Payment for items in your cart',
-        });
-  
-        // If order created successfully, proceed with Razorpay checkout
-        if (data.success) {
-          console.log("aagya")
-          const options = {
-            key: data.key_id,
-            amount: data.amount,
-            currency: "INR",
-            name: data.product_name,
-            description: data.description,
-            image: ShoppingCartTwoToneIcon, // Optional image
-            order_id: data.order_id, // Order ID returned from your backend
-            handler: function (response) {
-              alert("Payment Successful");
-              dispatch(signoutCart());
-              // when payment is successful we empty the card
-              // Optionally, you can handle post-payment logic here 
-              navigate('/market');
+  try {
+    // Send a request to your backend to create a Razorpay order using fetch
+    const response = await fetch('http://localhost:3000/createOrder', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        amount: totalPrice,
+        name: 'Cart Purchase',
+        description: 'Payment for items in your cart',
+      }),
+    });
+
+    const data = await response.json();
+
+    // If the order is created successfully, proceed with Razorpay checkout
+    if (data.success) {
+      const options = {
+        key: data.key_id,
+        amount: data.amount,
+        currency: "INR",
+        name: data.product_name,
+        description: data.description,
+        image: ShoppingCartTwoToneIcon, // Optional image
+        order_id: data.order_id, // Order ID returned from your backend
+        handler: async function (response) {
+          alert("Payment Successful");
+          
+          const cartOrder={
+            userId: currUser.currentUser._id, // Replace with actual user ID
+            cart: cart,
+            totalPrice: totalPrice,
+            paymentId: response.razorpay_payment_id, // Payment ID from Razorpay
+          }
+          // Once the payment is successful, create an order in your system
+          await fetch('/api/order/create', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
             },
-            
-            prefill: {
-              name: data.name,
-              email: data.email,
-              contact: data.contact,
-            },
-            theme: {
-              color: "#2300a3",
-            },
-          };
-          const razorpay = new window.Razorpay(options);
-          razorpay.open();
-          razorpay.on('payment.failed', function (response) {
-            alert("Payment Failed: " + response.error.description);
+            body: JSON.stringify(cartOrder),
           });
-        } else {
-          alert('Order creation failed');
-        }
-      } catch (error) {
-        console.error('Error during payment:', error);
-        alert('Something went wrong!');
-      }
-    };
-  
+
+          dispatch(signoutCart());
+          // when payment is successful we empty the card
+          // Optionally, you can handle post-payment logic here 
+          navigate('/market');
+
+          // Optionally, you can handle post-payment logic here
+        },
+        prefill: {
+          name: data.name,
+          email: data.email,
+          contact: data.contact,
+        },
+        theme: {
+          color: "#2300a3",
+        },
+      };
+      const razorpay = new window.Razorpay(options);
+      razorpay.open();
+      razorpay.on('payment.failed', function (response) {
+        alert("Payment Failed: " + response.error.description);
+      });
+    } else {
+      alert('Order creation failed');
+    }
+  } catch (error) {
+    console.error('Error during payment:', error);
+    alert('Something went wrong!');
+  }
+};
+
 
 
    

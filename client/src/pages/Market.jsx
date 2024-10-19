@@ -55,7 +55,6 @@ export default function Market() {
       setCrops(data.crops);
       // setting the crops array into the global store 
       dispatch(addCrops(data.crops));
-      console.log(data.crops);
       setLoading(false);
       setShowMore(data.crops.length === 9); // Adjust based on pagination logic
     };

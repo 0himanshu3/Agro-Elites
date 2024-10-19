@@ -34,21 +34,19 @@ function Donation() {
 
             // Send payment success details to the backend to update the database
             const donationData = {
-              phoneNumber, // Phone number from input
-              amount: paisa, // Donation amount from input
+              phoneNumber, 
+              amount: paisa, 
               payment_id: response.razorpay_payment_id,
-              order_id: response.razorpay_order_id,
-              signature: response.razorpay_signature,
             };
-
             // Save payment details to the database
             const res = fetch('/api/donation/donated', {
               method: 'POST',
               headers: {
                 'Content-Type': 'application/json',
               },
-              body: JSON.stringify(data),
+              body: JSON.stringify(donationData),
             });
+            
             
       
 
