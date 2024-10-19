@@ -54,12 +54,12 @@ const ShopSearch = () => {
   };
 
   return (
-    <div className="shop-search-page flex flex-col items-center justify-center min-h-screen bg-gray-100 p-4">
-      <h1 className="text-2xl font-bold mb-6">Find Agriculture Shops</h1>
+    <div className="shop-search-page flex flex-col items-center justify-center min-h-screen bg-gray-100 p-4 dark:bg-gray-900">
+      <h1 className="text-2xl font-bold mb-6 ">Find Agriculture Shops</h1>
       <form onSubmit={handleSearch} className="flex flex-col items-center mb-4">
         <input
           type="text"
-          className="border border-gray-300 rounded-lg p-2 mb-4 w-64 shadow-md focus:outline-none focus:ring-2 focus:ring-green-500"
+          className="border border-gray-300 rounded-lg p-2 mb-4 w-64 shadow-md focus:outline-none focus:ring-2 focus:ring-green-500 dark:text-black"
           placeholder="Enter your city"
           value={city}
           onChange={(e) => setCity(e.target.value)}
