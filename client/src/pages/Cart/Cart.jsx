@@ -1,18 +1,21 @@
 import React,{useState,useEffect} from 'react'
+import { useNavigate } from 'react-router-dom';
 import './Cart.css';
-import { useSelector } from "react-redux";
+import { useSelector , useDispatch} from "react-redux";
 import CartItem from './CartItem/CartItem';
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
+import { signoutCart } from '../../redux/cart/cartSlice';
 import ShoppingCartTwoToneIcon from '@mui/icons-material/ShoppingCartTwoTone';
 import axios from 'axios'; // For making API requests
 function Cart1() {
-    
+   const navigate = useNavigate();
    // cart ko store se yaha par laaya jaaye
    const cart =  useSelector((state)=>{
     return state.shop.cart;
     })
 
+    const dispatch = useDispatch();
 
     const handlePayment = async () => {
       try {
@@ -36,7 +39,10 @@ function Cart1() {
             order_id: data.order_id, // Order ID returned from your backend
             handler: function (response) {
               alert("Payment Successful");
-              // Optionally, you can handle post-payment logic here
+              dispatch(signoutCart());
+              // when payment is successful we empty the card
+              // Optionally, you can handle post-payment logic here 
+              navigate('/market');
             },
             
             prefill: {
