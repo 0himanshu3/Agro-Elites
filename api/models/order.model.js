@@ -8,7 +8,8 @@ const orderSchema = new mongoose.Schema({
   },
   items: [
     {
-      product: { type: mongoose.Schema.Types.ObjectId, ref: 'Product', required: true },
+      farmerId: { type: String, required: true },
+      cropId: {type: mongoose.Schema.Types.ObjectId, ref: 'Crop', required: true },
       qty: { type: Number, required: true },
       pricePerKg: { type: Number, required: true }
     }

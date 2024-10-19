@@ -47,7 +47,7 @@ function Cart1() {
         order_id: data.order_id, // Order ID returned from your backend
         handler: async function (response) {
           alert("Payment Successful");
-          
+         
           const cartOrder={
             userId: currUser.currentUser._id, // Replace with actual user ID
             cart: cart,
@@ -62,7 +62,7 @@ function Cart1() {
             },
             body: JSON.stringify(cartOrder),
           });
-
+          
           dispatch(signoutCart());
           // when payment is successful we empty the card
           // Optionally, you can handle post-payment logic here 

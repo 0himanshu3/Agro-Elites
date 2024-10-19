@@ -11,7 +11,8 @@ export const createOrder = async (req, res) => {
     const newOrder = new Order({
       user: userId,
       items: cart.map(item => ({
-        product: item._id,
+        farmerId: item.userId,
+        cropId:item._id,
         qty: item.qty,
         pricePerKg: item.pricePerKg
       })),
