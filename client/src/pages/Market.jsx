@@ -46,7 +46,6 @@ export default function Market() {
       setLoading(true);
       // If no filters applied, fetch all crops
       const searchQuery = isFilterApplied ? urlParams.toString() : '';
-      console.log(searchQuery);
       const res = await fetch(`/api/crop/getAllCrops?${searchQuery}`);
       if (!res.ok) {
         setLoading(false);
@@ -75,6 +74,13 @@ export default function Market() {
     const searchQuery = urlParams.toString();
     navigate(`/market?${searchQuery}`);
   };
+
+  const handlePriceChange = (e) => {
+    const { id, value } = e.target;
+    if (id === "quantity" && !/^\d*$/.test(value))
+        return;
+    setFilterData({ ...filterData, [id]: value });
+  }
 
   const handleShowMore = async () => {
     const numberOfCrops = crops.length;
@@ -132,12 +138,12 @@ export default function Market() {
             <label className='font-semibold'>Category:</label>
             <Select onChange={handleChange} value={filterData.category} id='category' className='p-2 rounded-md max-h-60 overflow-y-auto'>
               <option value=''>All Categories</option>
-              <option value='vegetables'>Vegetables</option>
-              <option value='fruits'>Fruits</option>
+              <option value='Vegetables'>Vegetables</option>
+              <option value='Fruits'>Fruits</option>
               <option value='Medicinal'>Medicinal</option>
               <option value='Oilseeds'>Oilseeds</option>
               <option value='Fibers'>Fibers</option>
-              <option value='Herbs'>Herbs</option>
+              <option value='Grains'>Grains</option>
               <option value='Herbs'>Herbs</option>
               <option value='Other'>Other</option>
             </Select>
@@ -147,10 +153,10 @@ export default function Market() {
             <label className='font-semibold'>Min Price:</label>
             <TextInput
               id='minPrice'
-              type='number'
+              type='text'
               value={filterData.minPrice}
-              onChange={handleChange}
-              placeholder='Min Price'
+              onChange={handlePriceChange}
+              placeholder='0'
             />
           </div>
 
@@ -158,10 +164,10 @@ export default function Market() {
             <label className='font-semibold'>Max Price:</label>
             <TextInput
               id='maxPrice'
-              type='number'
+              type='text'
               value={filterData.maxPrice}
-              onChange={handleChange}
-              placeholder='Max Price'
+              onChange={handlePriceChange}
+              placeholder='0'
             />
           </div>
 
@@ -194,14 +200,7 @@ export default function Market() {
                 </div>
               ))}
 
-          {showMore && (
-            <button
-              onClick={handleShowMore}
-              className='text-teal-500 text-lg hover:underline p-7 w-full'
-            >
-              Show More
-            </button>
-          )}
+          
         </div>
       </div>
     </div>

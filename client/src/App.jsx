@@ -18,6 +18,8 @@ import News from './pages/News'
 import Search from './pages/Search'
 import Market from './pages/Market'
 import Cart from './pages/Cart/Cart'
+import Shops from './pages/Shops'
+import Trends from './pages/Trends'
 function App() {
   return (
 
@@ -43,6 +45,8 @@ function App() {
       <Route path="/post/:postSlug" element={<PostPage />}></Route>
       <Route path='/market' element={<Market />} />
       <Route path="/cart" element={<Cart />} />
+      <Route path='/shops' element={<Shops/>} />
+      <Route path='/trends' element={<Trends/>} />
     </Routes>
     <FooterCom />
     </BrowserRouter>

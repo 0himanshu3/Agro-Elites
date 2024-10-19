@@ -34,10 +34,8 @@ const FetchNews = () => {
         throw new Error('Network response was not ok');
       })
       .then(myJson => {
-        console.log('API Response:', myJson);
         if (myJson.success) {
           const filteredarticles = filterArticles(myJson.data.articles);
-          console.log(filteredarticles);
           setTotalResults(myJson.data.totalResults);
           setData(filteredarticles);
         } else {

@@ -108,10 +108,16 @@ export default function Search() {
               value={sidebarData.category}
               id='category'
             >
-              <option value='uncategorized'>Uncategorized</option>
-              <option value='reactjs'>React.js</option>
-              <option value='nextjs'>Next.js</option>
-              <option value='javascript'>JavaScript</option>
+              <option value='uncategorized'>Select a category</option>
+            <option value='crop tips'>Crop Cultivation Tips</option>
+            <option value='pest and disease'>Pest and Disease Management</option>
+            <option value='water management'>Water Management Techniques</option>
+            <option value='organic farming'>Sustainable and Organic Farming</option>
+            <option value='soil health'>Soil Health and Fertilization</option>
+            <option value='tools and equipment'>Farm Equipment and Tools</option>
+            <option value='experiences and stories'>Farm Experiences and Success Stories</option>
+            <option value='finance and loans'>Financial Management and Loans</option>
+            <option value='seeds and crops'>Seed and Crop Varieties</option>
             </Select>
           </div>
           <div className='flex gap-4'>

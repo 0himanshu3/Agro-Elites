@@ -26,7 +26,7 @@ const LinksSection = () => {
   }, []);
 
   return (
-    <div className="bg-blue-400 text-black py-4 dark:text-white dark:bg-slate-500">
+    <div className="bg-yellow-200 text-black py-4 dark:text-white dark:bg-slate-800 rounded-md">
       <h2 className="text-center text-3xl font-bold mb-4">Important Links</h2>
       <div className="flex items-center justify-between px-8 mx-6">
         {vislinks.length > 0 &&

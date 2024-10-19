@@ -9,6 +9,9 @@ export default {
   ],
   theme: {
     extend: {
+      fontFamily: {
+        aclonica: ['Aclonica', 'sans-serif'],
+      },
       lineClamp: {
         7: '7',
       },

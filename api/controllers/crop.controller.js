@@ -99,3 +99,59 @@ export const updateQuantity = async (req, res) => {
         res.status(500).json({ message: 'Failed to update quantity' });
     }
 };
+
+// Delete a crop
+export const deleteCrop = async (req, res) => {
+  const { cropId } = req.body;
+
+  if (!cropId) {
+      return res.status(400).json({ message: 'Crop ID is required' });
+  }
+
+  try {
+      const userId = req.user.id;
+
+      const deletedCrop = await Crop.findOneAndDelete({ _id: cropId, userId: userId });
+
+      if (!deletedCrop) {
+          return res.status(404).json({ message: 'Crop not foundr' });
+      }
+
+      res.status(200).json({ message: 'Crop deleted successfully' });
+  }
+  catch (error) {
+      console.error(error);
+      res.status(500).json({ message: 'Failed to delete crop' });
+  }
+};
+
+
+export const updatePrice = async (req, res) => {
+    const { cropId, pricePerKg } = req.body;
+  
+    if (!cropId || pricePerKg === undefined) {
+      return res.status(400).json({ message: 'Crop ID and price per kg are required' });
+    }
+  
+    try {
+      const userId = req.user.id; // Assuming you have user ID stored in req.user
+  
+      const updatedCrop = await Crop.findOneAndUpdate(
+        { _id: cropId, userId: userId }, // Ensure the crop belongs to the user
+        { pricePerKg },
+        { new: true } // Return the updated crop
+      );
+  
+      if (!updatedCrop) {
+        return res.status(404).json({ message: 'Crop not found or does not belong to user' });
+      }
+  
+      res.status(200).json({
+        message: 'Price updated successfully',
+        crop: updatedCrop,
+      });
+    } catch (error) {
+      console.error(error);
+      res.status(500).json({ message: 'Failed to update price' });
+    }
+  };

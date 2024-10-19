@@ -48,14 +48,16 @@ export default function Header() {
   };
 
   return (
-    <Navbar className='border-b-2'>
+    <Navbar className='border-b-2 bg-yellow-100'>
       <Link
         to='/'
-        className='self-center whitespace-nowrap text-sm sm:text-xl font-semibold dark:text-white'
+        className='self-center whitespace-nowrap text-sm sm:text-xl font-semibold dark:text-white font-aclonica'
       >
-        <span className='px-2 py-1 bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 rounded-lg text-white'>
-          Krishi
-        </span>
+        <span className='px-2 py-1 bg-gradient-to-r from-green-800 via-green-600 to-green-400 rounded-lg text-white font-aclonica'>
+      Krishi
+    </span>
+    
+
         Help
       </Link>
       
@@ -102,27 +104,40 @@ export default function Header() {
         )}
         <Navbar.Toggle />
       </div>
-      <Navbar.Collapse>
-        <Navbar.Link active={path === '/'} as={'div'}>
-          <Link to='/'>Home</Link>
-        </Navbar.Link>
-        <Navbar.Link active={path === '/about'} as={'div'}>
-          <Link to='/about'>About</Link>
-        </Navbar.Link>
-        <Navbar.Link active={path === '/news'} as={'div'}>
-          <Link to='/news'>News</Link>
-        </Navbar.Link>
-        {currentUser && currentUser.isFarmer && ( // Check if user is a farmer
-          <Navbar.Link active={path === '/search'} as={'div'}>
-            <Link to='/search'>Articles</Link>
-          </Navbar.Link>
-        )}
-        {currentUser && !currentUser.isFarmer && ( 
-          <Navbar.Link active={path === '/market'} as={'div'}>
-            <Link to='/market'>Market</Link>
-          </Navbar.Link>
-        )}
-      </Navbar.Collapse>
+      <Navbar.Collapse className='flex space-x-4 items-center'>
+  <Navbar.Link active={path === '/'} as={'div'} className={`${path === '/' ? 'bg-green-500 text-white font-bold' : 'text-gray-700'}  px-4 py-2 rounded-lg`}>
+    <Link to='/'>Home</Link>
+  </Navbar.Link>
+  <Navbar.Link active={path === '/about'} as={'div'} className={`${path === '/about' ? 'bg-green-500 text-white font-bold' : 'text-gray-700'}  px-4 py-2 rounded-lg`}>
+    <Link to='/about'>About</Link>
+  </Navbar.Link>
+  <Navbar.Link active={path === '/news'} as={'div'} className={`${path === '/news' ? 'bg-green-500 text-white font-bold' : 'text-gray-700'}  px-4 py-2 rounded-lg`}>
+    <Link to='/news'>News</Link>
+  </Navbar.Link>
+
+  {currentUser && currentUser.isFarmer && (
+    <Navbar.Link active={path === '/search'} as={'div'} className={`${path === '/search' ? 'bg-green-500 text-white font-bold' : 'text-gray-700'} hover:text-green-500 px-4 py-2 rounded-lg`}>
+      <Link to='/search'>Articles</Link>
+    </Navbar.Link>
+  )}
+  {currentUser && currentUser.isFarmer && (
+    <Navbar.Link active={path === '/shops'} as={'div'} className={`${path === '/shops' ? 'bg-green-500 text-white font-bold' : 'text-gray-700'} hover:text-green-500 px-4 py-2 rounded-lg`}>
+      <Link to='/shops'>Shops</Link>
+    </Navbar.Link>
+  )}
+  
+  {currentUser && !currentUser.isFarmer && (
+    <Navbar.Link active={path === '/market'} as={'div'} className={`${path === '/market' ? 'bg-green-500 text-white font-bold' : 'text-gray-700'} hover:text-yellow-500 px-4 py-2 rounded-lg`}>
+      <Link to='/market'>Market</Link>
+    </Navbar.Link>
+  )}
+  {currentUser && !currentUser.isFarmer && (
+    <Navbar.Link active={path === '/trends'} as={'div'} className={`${path === '/trends' ? 'bg-green-500 text-white font-bold' : 'text-gray-700'} hover:text-yellow-500 px-4 py-2 rounded-lg`}>
+      <Link to='/trends'>Trends</Link>
+    </Navbar.Link>
+  )}
+</Navbar.Collapse>
+
     </Navbar>
   );
 }
