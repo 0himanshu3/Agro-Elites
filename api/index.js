@@ -144,7 +144,7 @@ const News = {
   });
 
 
-app.use('/order', orderRoutes);
+app.use('/api/order', orderRoutes);
 app.use('/api/user',userRoutes)
 app.use('/api/auth',authRoutes)
 app.use("/api/post",postRoutes)
