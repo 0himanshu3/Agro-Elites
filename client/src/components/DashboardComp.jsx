@@ -116,6 +116,23 @@ export default function DashboardComp() {
     setFilteredSuggestions([]);
   };
 
+  const handleUpdatePrice = async (cropId, newPrice) => {
+    try {
+      await fetch(`/api/crop/updatePrice`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ cropId, pricePerKg: newPrice }),
+      });
+
+      setCrops((prevCrops) => 
+        prevCrops.map((crop) => 
+          crop._id === cropId ? { ...crop, pricePerKg: newPrice } : crop
+        )
+      );
+    } catch (error) {
+      console.log('Failed to update price:', error.message);
+    }
+  };
   const cropTypes = ["Vegetables", "Fruits", "Grains", "Medicinal", "Oilseeds", "Fiber based", "Herbs", "Other"];
 
   return (
@@ -138,7 +155,7 @@ export default function DashboardComp() {
 
       <div className="flex flex-wrap gap-4 py-3 mx-auto justify-center">
         {crops.map((crop) => (
-          <CropCard key={crop._id} crop={crop} onUpdateQuantity={handleUpdateQuantity} />
+          <CropCard key={crop._id} crop={crop} onUpdateQuantity={handleUpdateQuantity} onUpdatePrice={handleUpdatePrice}/>
         ))}
       </div>
 
