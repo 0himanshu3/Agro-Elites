@@ -20,6 +20,7 @@ import Market from './pages/Market'
 import Cart from './pages/Cart/Cart'
 import Shops from './pages/Shops'
 import Trends from './pages/Trends'
+import Donation from './pages/Donation'
 function App() {
   return (
 
@@ -47,6 +48,8 @@ function App() {
       <Route path="/cart" element={<Cart />} />
       <Route path='/shops' element={<Shops/>} />
       <Route path='/trends' element={<Trends/>} />
+      <Route path='/donation-portal' element={<Donation/>} />
+
     </Routes>
     <FooterCom />
     </BrowserRouter>

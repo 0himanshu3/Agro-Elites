@@ -28,9 +28,9 @@ const Objectives = () => {
       </div>
 
       {/* Objectives Section */}
-      <div className="py-12 bg-gradient-to-r from-green-100 to-green-200">
-        <div className="max-w-6xl mx-auto p-8 bg-white rounded-lg shadow-lg">
-          <h2 className="text-center text-3xl font-semibold mb-10">Our Objectives</h2>
+      <div className="py-12 bg-gradient-to-r from-green-200 to-green-400 dark:bg-slate-800">
+        <div className="max-w-6xl mx-auto p-8 bg-white rounded-lg shadow-lg dark:bg-slate-700">
+          <h2 className="text-center text-3xl font-semibold mb-10 ">Our Objectives</h2>
           <div className="flex flex-wrap justify-around items-center gap-8">
             <div className="section p-4 text-center max-w-xs">
               <FontAwesomeIcon icon={faHandshake} className="text-6xl mb-4 text-green-600" />

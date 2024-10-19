@@ -3,6 +3,7 @@ import mongoose from "mongoose";
 import  dotenv from "dotenv";
 import authRoutes from "./routes/auth.route.js"
 import userRoutes from "./routes/user.route.js"
+import orderRoutes from "./routes/order.route.js"
 import cookieParser from 'cookie-parser';
 import postRoutes from "./routes/post.route.js"
 import commentRoutes from "./routes/comment.route.js"
@@ -142,6 +143,8 @@ const News = {
     }
   });
 
+
+app.use('/order', orderRoutes);
 app.use('/api/user',userRoutes)
 app.use('/api/auth',authRoutes)
 app.use("/api/post",postRoutes)
