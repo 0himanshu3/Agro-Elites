@@ -98,6 +98,11 @@ export default function Header() {
       <Link to='/search'>Articles</Link>
     </Navbar.Link>
   )}
+  {currentUser && currentUser.isFarmer && (
+    <Navbar.Link active={path === '/shops'} as={'div'} className={`${path === '/shops' ? 'bg-green-500 text-white font-bold' : 'text-gray-700'} hover:text-green-500 px-4 py-2 rounded-lg`}>
+      <Link to='/shops'>Shops</Link>
+    </Navbar.Link>
+  )}
   
   {currentUser && !currentUser.isFarmer && (
     <Navbar.Link active={path === '/market'} as={'div'} className={`${path === '/market' ? 'bg-green-500 text-white font-bold' : 'text-gray-700'} hover:text-yellow-500 px-4 py-2 rounded-lg`}>
