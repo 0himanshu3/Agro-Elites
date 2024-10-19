@@ -132,12 +132,12 @@ export default function Market() {
             <label className='font-semibold'>Category:</label>
             <Select onChange={handleChange} value={filterData.category} id='category' className='p-2 rounded-md max-h-60 overflow-y-auto'>
               <option value=''>All Categories</option>
-              <option value='vegetables'>Vegetables</option>
-              <option value='fruits'>Fruits</option>
+              <option value='Vegetables'>Vegetables</option>
+              <option value='Fruits'>Fruits</option>
               <option value='Medicinal'>Medicinal</option>
               <option value='Oilseeds'>Oilseeds</option>
               <option value='Fibers'>Fibers</option>
-              <option value='Herbs'>Herbs</option>
+              <option value='Grains'>Grains</option>
               <option value='Herbs'>Herbs</option>
               <option value='Other'>Other</option>
             </Select>
@@ -194,14 +194,7 @@ export default function Market() {
                 </div>
               ))}
 
-          {showMore && (
-            <button
-              onClick={handleShowMore}
-              className='text-teal-500 text-lg hover:underline p-7 w-full'
-            >
-              Show More
-            </button>
-          )}
+          
         </div>
       </div>
     </div>

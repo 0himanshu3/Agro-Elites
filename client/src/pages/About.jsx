@@ -1,8 +1,10 @@
 import React from 'react'
-
+import Objectives from '../components/Objectives'
 function About() {
   return (
-    <div>About</div>
+    <>
+    <Objectives/>
+    </>
   )
 }
 

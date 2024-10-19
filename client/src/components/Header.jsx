@@ -109,6 +109,11 @@ export default function Header() {
       <Link to='/market'>Market</Link>
     </Navbar.Link>
   )}
+  {currentUser && !currentUser.isFarmer && (
+    <Navbar.Link active={path === '/trends'} as={'div'} className={`${path === '/trends' ? 'bg-green-500 text-white font-bold' : 'text-gray-700'} hover:text-yellow-500 px-4 py-2 rounded-lg`}>
+      <Link to='/trends'>Trends</Link>
+    </Navbar.Link>
+  )}
 </Navbar.Collapse>
 
     </Navbar>
