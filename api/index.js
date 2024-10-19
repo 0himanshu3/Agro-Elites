@@ -9,6 +9,7 @@ import postRoutes from "./routes/post.route.js"
 import commentRoutes from "./routes/comment.route.js"
 import cropRoutes from "./routes/crop.route.js"
 import paymentRoute from "./routes/paymentRoutes.js"
+import donationRoute from "./routes/donation.route.js"
 import axios from "axios"
 import cors from "cors";  // Import CORS
 dotenv.config();
@@ -151,6 +152,7 @@ app.use("/api/post",postRoutes)
 app.use('/api/comment',commentRoutes)
 app.use('/api/crop',cropRoutes)
 app.use('/',paymentRoute)
+app.use('/api/donation',donationRoute);
 //middleware
 app.use((err, req, res, next) => {
     const statusCode = err.statusCode || 500;
