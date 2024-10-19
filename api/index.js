@@ -10,8 +10,6 @@ import cropRoutes from "./routes/crop.route.js"
 import axios from "axios"
 dotenv.config();
 
-
-
 mongoose.connect(process.env.MONGO).then(()=>{
     console.log("MongoDB connection succesful");
 })
@@ -35,7 +33,7 @@ app.listen(3000,()=>{
 const News = {
     defaultProps: {
       country: 'in', 
-      pageSize: 12,   
+      pageSize: 20,   
       query: 'agriculture OR farming OR crops AND india',
     },
   };
@@ -50,7 +48,7 @@ const News = {
       const response = await axios.get(url);
       const articles = response.data.articles;
       const totalResults = response.data.totalResults;
-  
+      console.log(totalResults);
       res.status(200).json({
         success: true,
         data: {
@@ -67,6 +65,80 @@ const News = {
     }
   });
 
+  //Fetching Shop details
+  app.get('/api/shops', async (req, res) => {
+    try {
+      const { city } = req.query;
+      const foursquareApiKey = process.env.FOURSQUARE_API_KEY;
+  
+      const url = `https://api.foursquare.com/v3/places/search?query=agriculture+shops&near=${city}&limit=20&fields=name,location,tel,website`;
+  
+      const response = await axios.get(url, {
+        headers: {
+          Authorization: `${foursquareApiKey}`, 
+          accept: 'application/json',
+        },
+      });
+        const shops = response.data.results.map((shop) => {
+         return {
+          name: shop.name,
+          address: shop.location?.formatted_address || "Not available",
+          phoneNumber: shop.tel || "Not available",
+          website: shop.website || "Not available",
+        };
+      });
+  
+      res.status(200).json({
+        success: true,
+        shops,
+      });
+    } catch (error) {
+      console.error('Error fetching shops:', error);
+      res.status(500).json({
+        success: false,
+        message: error.response?.data?.message || 'Failed to fetch shops',
+      });
+    }
+  });
+
+//Fetching Market Trends
+  app.get('/api/trends', async (req, res) => {
+    try {
+      const { commodity, state, market } = req.query;
+  
+      const url = `http://127.0.0.1:5000/request?commodity=${commodity}&state=${state}&market=${market}`;
+  
+      const response = await axios.get(url);
+      const data = response.data;
+  
+      if (data && data.results) {
+        const prices = data.results.map((entry) => {
+          return {
+            date: entry.date,
+            price: entry.modal_price,
+            maxPrice: entry.max_price,
+            minPrice: entry.min_price,
+          };
+        });
+  
+        res.status(200).json({
+          success: true,
+          prices,
+        });
+      } else {
+        res.status(404).json({
+          success: false,
+          message: 'No price data available for the specified criteria.',
+        });
+      }
+    } catch (error) {
+      console.error('Error fetching Agmarknet data:', error);
+      res.status(500).json({
+        success: false,
+        message: error.response?.data?.message || 'Failed to fetch Agmarknet data',
+      });
+    }
+  });
 
 app.use('/api/user',userRoutes)
 app.use('/api/auth',authRoutes)

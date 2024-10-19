@@ -17,6 +17,8 @@ import ScrollToTop from './components/ScrollToTop'
 import News from './pages/News'
 import Search from './pages/Search'
 import Market from './pages/Market'
+import Shops from './pages/Shops'
+import Trends from './pages/Trends'
 function App() {
   return (
 
@@ -41,6 +43,8 @@ function App() {
       <Route path="/news" element={<News/>}></Route>
       <Route path="/post/:postSlug" element={<PostPage />}></Route>
       <Route path='/market' element={<Market />} />
+      <Route path='/shops' element={<Shops/>} />
+      <Route path='/trends' element={<Trends/>} />
     </Routes>
     <FooterCom />
     </BrowserRouter>

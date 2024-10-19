@@ -95,9 +95,19 @@ export default function Header() {
             <Link to='/search'>Articles</Link>
           </Navbar.Link>
         )}
+        {currentUser && currentUser.isFarmer && ( // Check if user is a farmer
+          <Navbar.Link active={path === '/shops'} as={'div'}>
+            <Link to='/shops'>Shops</Link>
+          </Navbar.Link>
+        )}
         {currentUser && !currentUser.isFarmer && ( 
           <Navbar.Link active={path === '/market'} as={'div'}>
             <Link to='/market'>Market</Link>
+          </Navbar.Link>
+        )}
+        {currentUser && !currentUser.isFarmer && ( 
+          <Navbar.Link active={path === '/trends'} as={'div'}>
+            <Link to='/trends'>Market Trends</Link>
           </Navbar.Link>
         )}
       </Navbar.Collapse>
