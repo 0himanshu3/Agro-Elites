@@ -57,6 +57,7 @@ function Cart1() {
             totalPrice: totalPrice,
             paymentId: response.razorpay_payment_id,
           }
+          console.log(cart);
              // Once the payment is successful, create an order in your system
           await fetch('/api/order/create', {
             method: 'POST',
@@ -65,6 +66,14 @@ function Cart1() {
             },
             body: JSON.stringify(cartOrder),
           });
+          await fetch('/api/crop/updateQty', {
+            method: 'PUT',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({cart}),
+          });
+          
           dispatch(signoutCart());
           // when payment is successful we empty the card
           // Optionally, you can handle post-payment logic here 
@@ -118,18 +127,18 @@ function Cart1() {
         <>
         {cart.length==0?<div className='container-div1 ' >
         <ShoppingCartTwoToneIcon style={{marginBottom:'2%' , fontSize : '8vw' , color: 'green'}}/>
-          <p style={{fontSize : '3vw',fontWeight:'500'}}> <span className=' font-aclonica px-2 py-1 bg-gradient-to-r from-green-800 via-green-600 to-green-400 rounded-lg text-white'>
+          <p style={{fontSize : '3vw',fontWeight:'500'}}> <span className=' font-aclonica px-2 py-1 bg-gradient-to-r from-green-800 via-green-600 to-green-400 rounded-lg text-white '>
           Krishi-Cart
         </span> is currently empty</p>
         </div>:
-        <div className='container-div' >
-            <div className='items'>
+        <div className='container-div bg-slate-300' >
+            <div className='items dark:bg-slate-500'>
                 <div className='header'>
-                    <p style={{paddingTop: '2%',paddingLeft: '2%',marginBottom:'3%',fontSize : '25px',fontWeight:'700'}}>Krishi Cart</p>
+                    <p style={{paddingTop: '2%',paddingLeft: '2%',marginBottom:'3%',fontSize : '25px',fontWeight:'700'} } className='dark:bg-slate-700 pb-2'>Krishi Cart</p>
                   
                     
-                </div>
-                <div className='added'>
+                </div >
+                <div className='added '>
                     
                          {cart.map((item) => (
                             <CartItem key={item._id} item={item} />
@@ -137,9 +146,9 @@ function Cart1() {
                     
                 </div>
             </div>
-            <div className='details-c'>
-              <div className='details'>
-            <h4 style={{textAlign:'center', paddingTop:'5%'}}>Cart Summary</h4>
+            <div className='details-c '>
+              <div className='details dark:bg-slate-500'>
+            <h4 style={{textAlign:'center', paddingTop:'5%'}} className='dark:bg-slate-700 pb-2'>Cart Summary</h4>
         <div style={{textAlign:'center', marginBottom: '5%', marginTop:'5%'}} >
           <span>Subtotal ({totalItems} items) : </span>
           <span style={{fontWeight:'bold'}}>₹ {totalPrice}</span>

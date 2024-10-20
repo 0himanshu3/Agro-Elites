@@ -73,7 +73,7 @@ export default function Header() {
         {currentUser ? (
           <>
           {!currentUser.isFarmer && (<Link to='/cart' style={{color:'#2f3542'}}>
-          <Button color="inherit">Cart<ShoppingCartIcon style={{marginLeft:'12%', marginRight:'1%'}}/><span className='cartNumber' style={{}}>{cartCount}</span></Button>
+          <Button color="inherit" className='dark:text-white'>Cart<ShoppingCartIcon style={{marginLeft:'12%', marginRight:'1%'}}/><span className='cartNumber dark:text-white' style={{}}>{cartCount}</span></Button>
           </Link>)}
           <Dropdown
             arrowIcon={false}
@@ -102,6 +102,12 @@ export default function Header() {
             </Button>
           </Link>
         )}
+
+<Link to='/donation-portal'>
+            <Button gradientDuoTone='purpleToBlue' outline>
+             Donate To Our Cause
+            </Button>
+          </Link>
         <Navbar.Toggle />
       </div>
       <Navbar.Collapse className='flex space-x-4 items-center'>

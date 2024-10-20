@@ -31,7 +31,11 @@ export default function CommentSection({ postId }) {
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify(data),
+        body: JSON.stringify({
+          content:comment,
+          postId,
+          userId:currentUser._id
+        }),
       });
       const data = await res.json();
       if (res.ok) {
@@ -41,6 +45,8 @@ export default function CommentSection({ postId }) {
       }
     } catch (error) {
       setCommentError(error.message);
+      console.log(error.message);
+      
     }
   };
 

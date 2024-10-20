@@ -9,7 +9,7 @@ const Objectives = () => {
       <div className="relative h-screen">
         <iframe
           className="absolute top-0 left-0 w-full h-full object-cover"
-          src="https://player.vimeo.com/video/9991422?autoplay=1&muted=1&loop=1&background=1"
+          src="https://player.vimeo.com/video/274986674?autoplay=1&muted=1&loop=1&background=1"
           frameBorder="0"
           allow="autoplay; fullscreen; muted"
           allowFullScreen

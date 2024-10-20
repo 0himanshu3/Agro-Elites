@@ -94,7 +94,7 @@ export default function DashSidebar() {
           {!currentUser.isFarmer && (
             <>
             
-             <Link to='/orderhistory?tab=comments'>
+             <Link to='/orderhistory'>
              <Sidebar.Item
                active={tab === 'comments'}
                icon={HiAnnotation}
