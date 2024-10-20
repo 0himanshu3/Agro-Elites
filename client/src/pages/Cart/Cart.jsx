@@ -125,9 +125,9 @@ function Cart1() {
   
     return (
         <>
-        {cart.length==0?<div className='container-div1 ' >
+        {cart.length==0?<div className='container-div1 dark:bg-slate-700' >
         <ShoppingCartTwoToneIcon style={{marginBottom:'2%' , fontSize : '8vw' , color: 'green'}}/>
-          <p style={{fontSize : '3vw',fontWeight:'500'}}> <span className=' font-aclonica px-2 py-1 bg-gradient-to-r from-green-800 via-green-600 to-green-400 rounded-lg text-white '>
+          <p style={{fontSize : '3vw',fontWeight:'500'}} className=''> <span className=' font-aclonica px-2 py-1 bg-gradient-to-r from-green-800 via-green-600 to-green-400 rounded-lg text-white '>
           Krishi-Cart
         </span> is currently empty</p>
         </div>:

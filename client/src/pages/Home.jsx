@@ -29,7 +29,7 @@ export default function Home() {
         <div
           className='flex flex-col gap-6 p-20 px-3 pw max-w-screen mx-auto mb-10 text-center'
           style={{
-            backgroundImage: `url('https://img.freepik.com/free-photo/beautiful-view-green-fields-sunrise-captured-canggu-bali_181624-14146.jpg?w=996&t=st=1729274671~exp=1729275271~hmac=250f7343767584ad446554d20191a51a8d19124f3f2493b81fc9b370c784c987')`,
+            backgroundImage: `url('https://e1.pxfuel.com/desktop-wallpaper/857/346/desktop-wallpaper-agriculture-and-agriculture.jpg')`,
             backgroundSize: 'cover',
             backgroundPosition: 'center',
             height: '600px',

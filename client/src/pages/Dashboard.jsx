@@ -7,6 +7,7 @@ import { useEffect } from 'react';
 import DashComments from '../components/DashComments';
 import DashUsers from '../components/DashUsers';
 import DashboardComp from '../components/DashboardComp';
+import Warehouse from './Warehouse';
 function Dashboard() {
    const location=useLocation();
    const [tab,setTab]=useState("");
@@ -30,6 +31,7 @@ function Dashboard() {
       {tab === 'users' && <DashUsers />}
       {tab === 'comments' && <DashComments />}
       {tab=== 'dash'  && <DashboardComp/>}
+      {tab=== 'orders'  && <Warehouse/>}
       
     </div>
   )

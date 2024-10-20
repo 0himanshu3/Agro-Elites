@@ -142,6 +142,7 @@ export default function Header() {
       <Link to='/trends'>Trends</Link>
     </Navbar.Link>
   )}
+  
 </Navbar.Collapse>
 
     </Navbar>
