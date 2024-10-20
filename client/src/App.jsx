@@ -22,6 +22,7 @@ import Shops from './pages/Shops'
 import Trends from './pages/Trends'
 import Donation from './pages/Donation'
 import OrderHistory from './pages/OrderHistory'
+import Warehouse from './pages/Warehouse'
 function App() {
   return (
 
@@ -54,7 +55,7 @@ function App() {
       <Route path='/shops' element={<Shops/>} />
       <Route path='/trends' element={<Trends/>} />
       <Route path='/donation-portal' element={<Donation/>} />
-
+      <Route path = '/warehouse' element = {<Warehouse/>} ></Route>
     </Routes>
     <FooterCom />
     </BrowserRouter>

@@ -9,6 +9,9 @@ import { signoutCart } from '../../redux/cart/cartSlice';
 import ShoppingCartTwoToneIcon from '@mui/icons-material/ShoppingCartTwoTone';
 import axios from 'axios'; // For making API requests
 function Cart1() {
+
+
+
    const navigate = useNavigate();
    // cart ko store se yaha par laaya jaaye
    const currUser = useSelector((state) => state.user);
@@ -62,7 +65,6 @@ function Cart1() {
             },
             body: JSON.stringify(cartOrder),
           });
-          
           dispatch(signoutCart());
           // when payment is successful we empty the card
           // Optionally, you can handle post-payment logic here 
@@ -74,6 +76,7 @@ function Cart1() {
           name: data.name,
           email: data.email,
           contact: data.contact,
+         
         },
         theme: {
           color: "#2300a3",

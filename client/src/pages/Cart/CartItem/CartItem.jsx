@@ -85,7 +85,7 @@ function CartItem1({ item }) {
         <Button variant="contained" color="secondary" style ={{width:'80%'}}
           onClick={() => dispatch(removeFromCart({id:item._id}))}
         >
-          <DeleteIcon/>Remove
+          <DeleteIcon/><p style={{fontSize:"90%"}}>Remove</p>
         </Button>
         <div className='itemQuantity'>
             <label htmlFor="qty">Qty:</label>

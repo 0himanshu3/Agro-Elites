@@ -2,8 +2,9 @@ import React, { useState } from 'react';
 import { Button, Badge, Card } from 'flowbite-react';
 import { AiOutlinePlus, AiOutlineMinus } from 'react-icons/ai';
 import { GiPlantWatering } from 'react-icons/gi';
-import {useDispatch,useSelector} from 'react-redux'
-import { addToCart , removeFromCart } from '../redux/cart/cartSlice';
+import { useDispatch } from 'react-redux';
+import { addToCart } from '../redux/cart/cartSlice';
+
 export default function CropCard({ crop }) {
   const [quantity, setQuantity] = useState(0);
   const dispatch = useDispatch();
@@ -12,7 +13,6 @@ export default function CropCard({ crop }) {
     if (quantity < crop.quantity) {
       setQuantity(quantity + 1);
     }
-    
   };
 
   const decrement = () => {
@@ -21,43 +21,41 @@ export default function CropCard({ crop }) {
     }
   };
 
-  const handleAdd = () =>{
-    dispatch(addToCart({id:crop._id,qty:quantity}))
-  }
+  const handleAdd = () => {
+    dispatch(addToCart({ id: crop._id, qty: quantity }));
+  };
 
   return (
     <div className="p-4">
-      <Card className="flex flex-col gap-4 w-full max-w-xs dark:bg-slate-800 rounded-md shadow-md">
+      <Card className="flex flex-col gap-4 w-full dark:bg-slate-800 rounded-md shadow-md min-w-[250px]">
         <div className="flex justify-between items-center">
           <div>
             <h3 className="text-gray-500 text-md uppercase">{crop.name}</h3>
             <p className="text-xl font-semibold">{crop.quantity} Kg</p>
           </div>
-          {/* Adjusted icon size */}
           <GiPlantWatering className="text-teal-600 text-3xl" />
         </div>
         <p className="text-gray-500">Price per Kg: ₹{crop.pricePerKg}</p>
         <p className="text-gray-500">Category: {crop.type}</p>
-        <p className="text-gray-500">Farmer ID:  {crop.userId}</p>
+        <p className="text-gray-500">Farmer ID: {crop.userId}</p>
 
-        {/* Badges for any special tags */}
         <div className="flex flex-wrap gap-2">
           <Badge color="success">Organic</Badge>
           <Badge color="info">Fresh</Badge>
         </div>
 
-        {/* Buttons for quantity control */}
         <div className="flex justify-between gap-2 mt-4">
           <Button
             onClick={decrement}
             color="gray"
             disabled={quantity === 0}
-            className="flex items-center justify-center p-2"
+            className="flex items-center justify-center p-2 w-[20%]"
           >
             <AiOutlineMinus className="text-lg" />
           </Button>
           <input
-            type="text" value={quantity} 
+            type="text"
+            value={quantity}
             onChange={(e) => {
               const value = e.target.value;
               if (/^\d*$/.test(value)) {
@@ -70,15 +68,15 @@ export default function CropCard({ crop }) {
             onClick={increment}
             color="gray"
             disabled={quantity === crop.quantity}
-            className="flex items-center justify-center p-2"
+            className="flex items-center justify-center p-2 w-[20%]"
           >
             <AiOutlinePlus className="text-lg" />
           </Button>
-          <Button 
-            onClick={handleAdd} 
-            color="gray" 
-            disabled={quantity === 0} 
-            className="flex items-center justify-center p-2"
+          <Button
+            onClick={handleAdd}
+            color="gray"
+            disabled={quantity === 0}
+            className="flex items-center justify-center p-2 w-[20%]"
           >
             Add to cart
           </Button>
