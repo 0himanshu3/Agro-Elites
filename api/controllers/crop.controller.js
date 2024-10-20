@@ -155,3 +155,19 @@ export const updatePrice = async (req, res) => {
       res.status(500).json({ message: 'Failed to update price' });
     }
   };
+
+  export const getSpecificCrop = async (req, res) => {
+    try {
+        const cropId = req.params.cropId;
+        const crops = await Crop.find({ _id: cropId }); 
+        
+        if (crops.length === 0) {
+            return res.status(404).json({ error: 'Crop not found' });
+        }
+        
+        res.json(crops); 
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ error: 'Failed to fetch crops' });
+    }
+};
