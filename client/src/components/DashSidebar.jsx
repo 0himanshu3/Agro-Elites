@@ -7,6 +7,7 @@ import {
   HiAnnotation,
   HiChartPie,
 } from 'react-icons/hi';
+import { FaReceipt } from 'react-icons/fa';
 import { useEffect, useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { useSelector } from 'react-redux';
@@ -54,6 +55,17 @@ export default function DashSidebar() {
               </Sidebar.Item>
             </Link>
           )}
+          {currentUser.isFarmer && (
+            <Link to='/dashboard?tab=orders'>
+              <Sidebar.Item
+                active={tab === 'orders'}
+                icon={FaReceipt}
+                as='div'
+              >
+                Orders
+              </Sidebar.Item>
+            </Link>
+          )}
           <Link to='/dashboard?tab=profile'>
             <Sidebar.Item
               active={tab === 'profile'}
@@ -65,6 +77,7 @@ export default function DashSidebar() {
               Profile
             </Sidebar.Item>
           </Link>
+
           {currentUser.isFarmer && (
             <Link to='/dashboard?tab=posts'>
               <Sidebar.Item

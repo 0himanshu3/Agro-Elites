@@ -55,7 +55,7 @@ function App() {
       <Route path='/shops' element={<Shops/>} />
       <Route path='/trends' element={<Trends/>} />
       <Route path='/donation-portal' element={<Donation/>} />
-      <Route path = '/warehouse' element = {<Warehouse/>} ></Route>
+     
     </Routes>
     <FooterCom />
     </BrowserRouter>

@@ -90,12 +90,14 @@ function CartItem1({ item }) {
         <div className='itemQuantity'>
             <label htmlFor="qty">Qty:</label>
           <input
+
             min="1"
             type="number"
             id="qty"
             name="qty"
             value={input}
             onChange={handleQty}
+            className='dark:bg-slate-600'
           />
             </div>
         </div>
