@@ -54,16 +54,18 @@ export default function CropCard({ crop }) {
             <AiOutlineMinus className="text-lg" />
           </Button>
           <input
-            type="text"
-            value={quantity}
-            onChange={(e) => {
-              const value = e.target.value;
-              if (/^\d*$/.test(value)) {
-                setQuantity(Number(value));
-              }
-            }}
-            className="bg-transparent text-center w-16 text-xl outline-none"
-          />
+  type="number"
+  value={quantity}
+  onChange={(e) => {
+    const value = e.target.value;
+    const maxQuantity = crop.quantity; // Set your desired maximum quantity here
+    if (Number(value) <= maxQuantity) {
+      setQuantity(Number(value));
+    }
+  }}
+  className="bg-transparent text-center w-16 text-xl outline-none"
+/>
+
           <Button
             onClick={increment}
             color="gray"

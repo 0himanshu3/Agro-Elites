@@ -5,7 +5,6 @@ import { errorHandler } from "../utils/error.js";
 
 export const create = async (req, res, next) => {
     //only allow admins to create post
-    console.log(req.user.isFarmer);
     
     if (!req.user.isFarmer) {
       return next(errorHandler(403, 'You are not allowed to create a post'));

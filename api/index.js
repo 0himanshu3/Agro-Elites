@@ -52,7 +52,6 @@ const News = {
       const response = await axios.get(url);
       const articles = response.data.articles;
       const totalResults = response.data.totalResults;
-      console.log(totalResults);
       res.status(200).json({
         success: true,
         data: {
