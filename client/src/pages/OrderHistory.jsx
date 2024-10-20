@@ -13,8 +13,9 @@ const OrderHistory = () => {
         if (currUser && currUser.currentUser && currUser.currentUser._id) {
           const res = await axios.get(`/api/order/getorders/${currUser.currentUser._id}`);
           if (res.status === 200) {
-            setOrderHistory(res.data.orders); 
-            const cropIds = [...new Set(res.data.orders.flatMap(order => order.items.map(item => item.cropId)))];
+            const reversedOrders=res.data.orders.reverse();
+            setOrderHistory(reversedOrders); 
+            const cropIds = [...new Set(reversedOrders.flatMap(order => order.items.map(item => item.cropId)))];
 
                     // Fetch crops in parallel with corrected URL
                     const cropPromises = cropIds.map(cropId => axios.get(`/api/crop/getSpecificCrops/${cropId}`)); 
@@ -25,7 +26,7 @@ const OrderHistory = () => {
                             cropMap[response.data[0]._id] = response.data[0].name; 
                         }
                     });
-
+                  
                   setCrops(cropMap);
           }
         }

@@ -54,6 +54,7 @@ function Cart1() {
             totalPrice: totalPrice,
             paymentId: response.razorpay_payment_id,
           }
+          console.log(cart);
              // Once the payment is successful, create an order in your system
           await fetch('/api/order/create', {
             method: 'POST',
@@ -61,6 +62,13 @@ function Cart1() {
               'Content-Type': 'application/json',
             },
             body: JSON.stringify(cartOrder),
+          });
+          await fetch('/api/crop/updateQty', {
+            method: 'PUT',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({cart}),
           });
           
           dispatch(signoutCart());
