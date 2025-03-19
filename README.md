@@ -1,4 +1,6 @@
-KrishiHelp
+**KrishiHelp**
+
+
 KrishiHelp is a dynamic web-based platform designed to streamline agricultural commerce by connecting farmers directly with distributors. 
 This innovative solution empowers farmers to sell their crops efficiently while enabling distributors to purchase produce directly, fostering a transparent and efficient agricultural marketplace.
 
